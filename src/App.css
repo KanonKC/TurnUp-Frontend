@@ -1,0 +1,22 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+.themed-border {
+  background: linear-gradient(#282c34, #282c34) 50% 50%/calc(100% - 12px) calc(100% - 12px) no-repeat,
+            linear-gradient(343deg, transparent 0%, #ff00fa99 0%, #00ffeb 0%, rgba(220, 18, 219, 0.661) 100%);
+  border-radius: 0px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.themed-color {
+  font-weight: bold;
+  background: #FF00FB;
+  background: linear-gradient(to bottom right, #FF00FB 0%, #00FFEB 95%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
