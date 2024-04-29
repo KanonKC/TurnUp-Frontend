@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios"
 
 export type QueueVideoMetadata = {
-    queue_id: number
+    queue_id: string
     played_count: number
-    video_id: number
-    playlist_id: number
+    video_id: string
+    playlist_id: string
     video: {
-        video_id: number
+        video_id: string
         youtube_id: string
         title: string
         channel_title: string
@@ -15,6 +15,24 @@ export type QueueVideoMetadata = {
         duration: number
         is_cleared: boolean
         total_played: number
+    }
+}
+
+export const QueueVideoMetadataDummy = {
+    queue_id: "1",
+    played_count: 1,
+    video_id: "1",
+    playlist_id: "1",
+    video: {
+        video_id: "1",
+        youtube_id: "asddwasdw",
+        title: "asddwasdw",
+        channel_title: "asddwasdw",
+        description: "asddwasdw",
+        thumbnail: "https://i.ytimg.com/vi/q6H3rxUA40Q/mqdefault.jpg",
+        duration: 60,
+        is_cleared: false,
+        total_played: 5
     }
 }
 
@@ -27,8 +45,8 @@ export type QueueServiceAPIGetAll = {
 export type QueueServiceAPI = {
     getAll: (playlistId: string) => Promise<AxiosResponse<QueueServiceAPIGetAll>>
     addVideo: (playlistId: string, videoId: string) => Promise<AxiosResponse<QueueVideoMetadata>>
-    clear: (playlistId: string) => null
+    clear: (playlistId: string) => Promise<AxiosResponse<null>>
     countUp: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>> // ****
     get: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>>
-    remove: (queueId: string) => null
+    remove: (queueId: string) => Promise<AxiosResponse<null>>
 }
