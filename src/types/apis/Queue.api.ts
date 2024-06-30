@@ -1,12 +1,13 @@
 import { AxiosResponse } from "axios"
+import { ListAPIResponse } from "../ListAPI"
 
 export type QueueVideoMetadata = {
-    queue_id: string
+    id: string
     played_count: number
     video_id: string
     playlist_id: string
     video: {
-        video_id: string
+        id: string
         youtube_id: string
         title: string
         channel_title: string
@@ -18,13 +19,13 @@ export type QueueVideoMetadata = {
     }
 }
 
-export const QueueVideoMetadataDummy = {
-    queue_id: "1",
+export const QueueVideoMetadataDummy:QueueVideoMetadata = {
+    id: "1",
     played_count: 1,
     video_id: "1",
     playlist_id: "1",
     video: {
-        video_id: "1",
+        id: "1",
         youtube_id: "asddwasdw",
         title: "asddwasdw",
         channel_title: "asddwasdw",
@@ -43,7 +44,7 @@ export type QueueServiceAPIGetAll = {
 // export type 
 
 export type QueueServiceAPI = {
-    getAll: (playlistId: string) => Promise<AxiosResponse<QueueServiceAPIGetAll>>
+    getAll: (playlistId: string) => Promise<AxiosResponse<ListAPIResponse<QueueVideoMetadata[]>>>
     addVideo: (playlistId: string, videoId: string) => Promise<AxiosResponse<QueueVideoMetadata>>
     clear: (playlistId: string) => Promise<AxiosResponse<null>>
     countUp: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>> // ****

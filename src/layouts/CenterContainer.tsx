@@ -1,3 +1,5 @@
+import BackButton from "@/components/BackButton";
+import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 
 const CenterContainer = ({
@@ -8,7 +10,8 @@ const CenterContainer = ({
 	className?: string;
 }) => {
 	return (
-		<div className="flex h-screen">
+		<div className="flex h-screen relative">
+			<BackButton/>
 			<div
 				className={"m-auto " + className} /* className="m-auto w-1/2" */
 			>

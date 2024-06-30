@@ -1,13 +1,28 @@
 import { AxiosResponse } from "axios";
 
-export type PlaylistModel = {
-    playlist_id: string;
+export interface PlaylistModel {
+    id: string;
+    code: string;
     current_index: number | null;
 }
 
+export interface PlaylistModelWithCurrentVideo extends PlaylistModel {
+    video: {
+        id: string
+        youtube_id: string
+        title: string
+        channel_title: string
+        description: string
+        thumbnail: string
+        duration: number
+        is_cleared: boolean
+        total_played: number
+    } | null;
+}
+
 export type PlaylistServiceAPI = {
-    create: () => Promise<AxiosResponse<PlaylistModel>>
-    get: (playlistId: string) => Promise<AxiosResponse<PlaylistModel>>
+    create: (playlistId: string) => Promise<AxiosResponse<PlaylistModel>>
+    get: (playlistId: string) => Promise<AxiosResponse<PlaylistModelWithCurrentVideo>>
     play: {
         index: (playlistId: string,index: number) => Promise<AxiosResponse<PlaylistModel>>
         next: (playlistId: string) => Promise<AxiosResponse<PlaylistModel>>

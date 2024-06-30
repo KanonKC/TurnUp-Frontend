@@ -4,10 +4,10 @@ import { BACKEND_URL } from "./BackendURL";
 
 export const YoutubeSearchService: YoutubeSearchServiceAPI = {
     searchByQuery(query) {
-        return axios.get<SearchAPISearchByQueryResponse>(`${BACKEND_URL}/api/search/video/${query}`)
+        return axios.get<SearchAPISearchByQueryResponse>(`${BACKEND_URL}/search/video/${query}`)
     },
 
     searchByPlaylistId(id){
-        return axios.get<SearchAPISearchByPlaylistIDResponse>(`${BACKEND_URL}/api/search/playlist/${id}`)
+        return axios.get<SearchAPISearchByPlaylistIDResponse>(`${BACKEND_URL}/search/playlist/${id}`)
     }
 }

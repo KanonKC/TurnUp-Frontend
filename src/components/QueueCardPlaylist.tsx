@@ -4,14 +4,26 @@ import QueueCard, { QueueCardVariant } from "./QueueCard";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { PlaylistService } from "@/services/apis/Playlist.service";
+import socket from "@/socket";
 
 const QueueCardPlaylist = ({
 	queues,
 	nowPlaying,
+	readOnly = false,
 }: {
 	queues: QueueVideoMetadata[];
 	nowPlaying: PlaylistModel | undefined;
+	readOnly?: boolean;
 }) => {
+
+	const handleOnClick = async (index:number) => {
+
+		if (!nowPlaying || readOnly) return
+
+		await PlaylistService.play.index(nowPlaying.id, index)
+		socket.emit("reloadQueuesInPlaylist",nowPlaying.id)
+	}
+
 	return (
 		<ScrollArea className="h-[50vh] pr-5">
 			{queues.length === 0 ? (
@@ -30,16 +42,12 @@ const QueueCardPlaylist = ({
 
 					return (
 						<QueueCard
-							key={queueData.queue_id}
+							readOnly={readOnly}
+							key={queueData.id}
 							queueVideoMetadata={queueData}
 							variant={variant}
 							active={active}
-							onClick={() =>
-								PlaylistService.play.index(
-									nowPlaying?.playlist_id ?? "",
-									i
-								)
-							}
+							onClick={() => handleOnClick(i)}
 						/>
 					);
 				})

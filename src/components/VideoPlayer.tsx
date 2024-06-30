@@ -1,5 +1,6 @@
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { QueueService } from "@/services/apis/Queue.service";
+import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import React from "react";
@@ -20,11 +21,19 @@ const VideoPlayer = ({
 
 		if (!nowPlaying || nowPlaying.current_index === null) return;
 
-		QueueService.countUp(queues[nowPlaying.current_index].queue_id).then(
-			() => {
-				return PlaylistService.play.algorithm(nowPlaying.playlist_id);
+		console.log("Count up and go next")
+
+		QueueService.countUp(queues[nowPlaying.current_index].id).then(
+			(res) => {
+				console.log("Counted up")
+				console.log(res.data)
+				return PlaylistService.play.algorithm(nowPlaying.id);
 			}
-		);
+		).then((res) => {
+			console.log("Algorithm")
+			console.log(res.data)
+			socket.emit("reloadQueuesInPlaylist", nowPlaying.id);
+		});
 	};
 
 	const handleURL = () => {

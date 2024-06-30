@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from './ui/button'
 import { PlaylistService } from '@/services/apis/Playlist.service'
 import { QueueService } from '@/services/apis/Queue.service'
+import socket from '@/socket'
 
 const ClearPlaylistButton = ({
     playlistId
@@ -10,7 +11,9 @@ const ClearPlaylistButton = ({
 }) => {
 
     const handleClick = () => {
-        QueueService.clear(playlistId)
+        QueueService.clear(playlistId).then(() => {
+          socket.emit("reloadQueuesInPlaylist", playlistId);
+        })
     }
 
   return (
