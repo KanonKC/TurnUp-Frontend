@@ -1,0 +1,1 @@
+export type CardVariant = "TOP" | "MID" | "BOTTOM" | "ROUND"

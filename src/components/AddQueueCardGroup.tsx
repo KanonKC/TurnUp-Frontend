@@ -6,49 +6,42 @@ import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
+import { YoutubeBaseAttributes } from "@/types/apis/YoutubeSearch.api";
+import AddQueueCard from "./AddQueueCard";
 
-const QueueCardPlaylist = ({
-	queues,
-	nowPlaying,
+const AddQueueCardGroup = ({
+	searchVideos=[],
 	readOnly = false,
 }: {
-	queues: QueueVideoMetadata[];
-	nowPlaying: PlaylistModel | undefined;
+	searchVideos?: YoutubeBaseAttributes[];
 	readOnly?: boolean;
 }) => {
 
 	const handleOnClick = async (index:number) => {
 
-		if (!nowPlaying || readOnly) return
-
-		await PlaylistService.play.index(nowPlaying.id, index)
-		socket.emit("reloadQueuesInPlaylist",nowPlaying.id)
+		// await PlaylistService.play.index(nowPlaying.id, index)
+		// socket.emit("reloadQueuesInPlaylist",nowPlaying.id)
 	}
 
 	return (
 		<ScrollArea className="h-[50vh] pr-5">
-			{queues.length === 0 ? (
+			{searchVideos.length === 0 ? (
 				<div className="invisible">
 					<QueueCard />
 				</div>
 			) : (
-				queues.map((queueData, i) => {
+				searchVideos.map((queueData, i) => {
 					let variant: CardVariant = "MID";
 
-					if (queues.length === 1) variant = "ROUND";
+					if (searchVideos.length === 1) variant = "ROUND";
 					else if (i === 0) variant = "TOP";
-					else if (i === queues.length - 1) variant = "BOTTOM";
-
-					let active = nowPlaying && i === nowPlaying.current_index;
+					else if (i === searchVideos.length - 1) variant = "BOTTOM";
 
 					return (
-						<QueueCard
-							readOnly={readOnly}
-							key={queueData.id}
-							queueVideoMetadata={queueData}
+						<AddQueueCard
+							key={i}
+							videoMetadata={queueData}
 							variant={variant}
-							active={active}
-							onClick={() => handleOnClick(i)}
 						/>
 					);
 				})
@@ -58,4 +51,4 @@ const QueueCardPlaylist = ({
 	);
 };
 
-export default QueueCardPlaylist;
+export default AddQueueCardGroup;

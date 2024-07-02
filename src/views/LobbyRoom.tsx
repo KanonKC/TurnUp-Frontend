@@ -1,17 +1,22 @@
 import ClearPlaylistButton from "@/components/ClearPlaylistButton";
 import QueueCard from "@/components/QueueCard";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
+import SearchVideoDialog from "@/components/SearchVideoDialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import VideoPlayer from "@/components/VideoPlayer";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
+import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
+import { MonitorPlay } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const LobbyRoom = () => {
 
@@ -19,6 +24,8 @@ const LobbyRoom = () => {
 	const [nowPlaying, setnowPlaying] = useState<PlaylistModel>();
 
 	const { playlistId } = useParams();
+
+    const navigate = useNavigate();
 
     const load = () => {
 
@@ -50,34 +57,41 @@ const LobbyRoom = () => {
 	}, []);
     
     return (
-        <CenterContainer>
-            <div className="my-5">
-				<h1 className="text-6xl text-center themed-color tracking-widest">
-					{playlistId}
-				</h1>
-			</div>
-            <div>
-                <YoutubeQueueInput />
-            </div>
+        <ValidLobbyContainer>
+            <CenterContainer>
 
-            <div className="my-3">
-                <div className="font-bold mb-1">NOW PLAYING</div>
-                <div className="now-playing-border">
-                <QueueCard 
-                    queueVideoMetadata={queues[nowPlaying?.current_index || 0]}
-                    readOnly
-                    variant="ROUND"
-                    />
+                <Button onClick={() => navigate("./player")} className="absolute right-5 top-5">Go to Player Room
+
+                    <MonitorPlay size={20} className="ml-2" />
+                </Button>
+                <div className="my-5">
+                    <h1 className="text-6xl text-center themed-color tracking-widest">
+                        {playlistId}
+                    </h1>
                 </div>
-            </div>
-            
-            <div className="font-bold mb-1">QUEUE</div>
-            <QueueCardPlaylist
-                readOnly
-                queues={queues}
-                nowPlaying={nowPlaying}
-            />
-        </CenterContainer>
+                <div>
+                    <YoutubeQueueInput />
+                </div>
+
+                <div className="my-3">
+                    <div className="font-bold mb-1">NOW PLAYING</div>
+                    <div className="now-playing-border">
+                    <QueueCard 
+                        queueVideoMetadata={queues[nowPlaying?.current_index || 0]}
+                        readOnly
+                        variant="ROUND"
+                        />
+                    </div>
+                </div>
+                
+                <div className="font-bold mb-1">QUEUE</div>
+                <QueueCardPlaylist
+                    readOnly
+                    queues={queues}
+                    nowPlaying={nowPlaying}
+                />
+            </CenterContainer>
+        </ValidLobbyContainer>
     )
 }
 

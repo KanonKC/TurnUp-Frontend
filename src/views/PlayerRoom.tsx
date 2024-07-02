@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import VideoPlayer from "@/components/VideoPlayer";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
+import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
@@ -60,40 +61,42 @@ const PlayerRoom = () => {
 	// },[nowPlaying])
 
 	return (
-		<CenterContainer>
-			<div className="my-10">
-				<h1 className="text-6xl text-center themed-color tracking-widest">
-					{playlistId}
-				</h1>
-			</div>
-			<div className="flex items-center">
-				<div className="w-1/2 flex justify-center mr-10">
-					<div>
-						<VideoPlayer queues={queues} nowPlaying={nowPlaying} />
-					</div>
+		<ValidLobbyContainer>
+			<CenterContainer>
+				<div className="my-10">
+					<h1 className="text-6xl text-center themed-color tracking-widest">
+						{playlistId}
+					</h1>
 				</div>
-				<div className="w-1/2 ml-10">
-					<div className="flex mb-5">
-						<div className="w-5/6">
-							<YoutubeQueueInput />
-						</div>
-						<div className="mx-2">
-							<Separator orientation="vertical" />
-						</div>
+				<div className="flex items-center">
+					<div className="w-1/2 flex justify-center mr-10">
 						<div>
-							<ClearPlaylistButton
-								playlistId={nowPlaying?.id ?? ""}
-							/>
+							<VideoPlayer queues={queues} nowPlaying={nowPlaying} />
 						</div>
 					</div>
+					<div className="w-1/2 ml-10">
+						<div className="flex mb-5">
+							<div className="w-5/6">
+								<YoutubeQueueInput />
+							</div>
+							<div className="mx-2">
+								<Separator orientation="vertical" />
+							</div>
+							<div>
+								<ClearPlaylistButton
+									playlistId={nowPlaying?.id ?? ""}
+								/>
+							</div>
+						</div>
 
-					<QueueCardPlaylist
-						queues={queues}
-						nowPlaying={nowPlaying}
-					/>
+						<QueueCardPlaylist
+							queues={queues}
+							nowPlaying={nowPlaying}
+						/>
+					</div>
 				</div>
-			</div>
-		</CenterContainer>
+			</CenterContainer>
+		</ValidLobbyContainer>
 	);
 };
 
