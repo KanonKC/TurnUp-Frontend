@@ -1,16 +1,11 @@
-import React from "react";
-import { Card } from "./ui/card";
-import { Trash, X } from "lucide-react";
-import { QueueVideoMetadata, QueueVideoMetadataDummy } from "@/types/apis/Queue.api";
-import { formatTime } from "@/services/FormatTime.service";
-import { PlaylistService } from "@/services/apis/Playlist.service";
 import { cn } from "@/lib/utils";
+import { QueueService } from "@/services/apis/Queue.service";
+import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
 import { YoutubeBaseAttributes, YoutubeBaseAttributesDummy } from "@/types/apis/YoutubeSearch.api";
-import { Button } from "./ui/button";
-import { QueueService } from "@/services/apis/Queue.service";
 import { useParams } from "react-router-dom";
-import socket from "@/socket";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 
 const AddQueueCard = ({
 	variant = "MID",
@@ -21,7 +16,7 @@ const AddQueueCard = ({
 }) => {
 	// bg-white text-black
 	const cardCustomCSS = () => {
-		let css = ""
+		const css = ""
 
 		if (variant === "TOP") {
 			return css + "rounded-t-lg ";

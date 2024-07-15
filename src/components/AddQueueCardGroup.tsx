@@ -1,27 +1,22 @@
-import React from "react";
-import { ScrollArea } from "./ui/scroll-area";
-import QueueCard from "./QueueCard";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
-import { PlaylistModel } from "@/types/apis/Playlist.api";
-import { PlaylistService } from "@/services/apis/Playlist.service";
-import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
 import { YoutubeBaseAttributes } from "@/types/apis/YoutubeSearch.api";
 import AddQueueCard from "./AddQueueCard";
+import QueueCard from "./QueueCard";
+import { ScrollArea } from "./ui/scroll-area";
 
 const AddQueueCardGroup = ({
 	searchVideos=[],
-	readOnly = false,
+	// readOnly = false,
 }: {
 	searchVideos?: YoutubeBaseAttributes[];
-	readOnly?: boolean;
+	// readOnly?: boolean;
 }) => {
 
-	const handleOnClick = async (index:number) => {
+	// const handleOnClick = async (index:number) => {
 
-		// await PlaylistService.play.index(nowPlaying.id, index)
-		// socket.emit("reloadQueuesInPlaylist",nowPlaying.id)
-	}
+	// 	// await PlaylistService.play.index(nowPlaying.id, index)
+	// 	// socket.emit("reloadQueuesInPlaylist",nowPlaying.id)
+	// }
 
 	return (
 		<ScrollArea className="h-[50vh] pr-5">

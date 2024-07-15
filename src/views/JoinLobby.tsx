@@ -1,9 +1,8 @@
-import TitleHeader from '@/components/TitleHeader'
 import { Button } from '@/components/ui/button'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
 import CenterContainer from '@/layouts/CenterContainer'
 import { PlaylistService } from '@/services/apis/Playlist.service'
-import React, { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const JoinLobby = () => {
@@ -15,20 +14,19 @@ const JoinLobby = () => {
         setRoomCode(e)
     }
 
-    const resolveRoomCode = async () => {
-        // console.log(roomCode)
-        PlaylistService.get(roomCode).then((response) => {
+    const resolveRoomCode = useCallback(async () => {
+        PlaylistService.get(roomCode).then(() => {
             navigate(`/${roomCode}`)
-        }).catch((err) => {
+        }).catch(() => {
             
         })
-    }
+    },[roomCode,navigate])
 
     useEffect(() => {
         if (roomCode.length === 6) {
             resolveRoomCode()
         }
-    },[roomCode])
+    },[roomCode,resolveRoomCode])
 
   return (
     <CenterContainer>

@@ -1,9 +1,6 @@
-import BackButton from '@/components/BackButton'
-import TitleHeader from '@/components/TitleHeader'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import CenterContainer from '@/layouts/CenterContainer'
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {

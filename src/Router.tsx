@@ -1,10 +1,9 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './views/Home'
-import VideoPlayer from './views/PlayerRoom'
-import LobbyRoom from './views/LobbyRoom'
 import CreateLobby from './views/CreateLobby'
+import Home from './views/Home'
 import JoinLobby from './views/JoinLobby'
+import LobbyRoom from './views/LobbyRoom'
+import VideoPlayer from './views/PlayerRoom'
 
 const Router = () => {
   return (

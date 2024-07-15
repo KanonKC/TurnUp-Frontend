@@ -3,7 +3,6 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
-import React from "react";
 import ReactPlayer from "react-player";
 
 const VideoPlayer = ({

@@ -1,11 +1,10 @@
-import React from "react";
-import { ScrollArea } from "./ui/scroll-area";
-import QueueCard from "./QueueCard";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
-import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import socket from "@/socket";
+import { PlaylistModel } from "@/types/apis/Playlist.api";
+import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { CardVariant } from "@/types/CardVariant";
+import QueueCard from "./QueueCard";
+import { ScrollArea } from "./ui/scroll-area";
 
 const QueueCardPlaylist = ({
 	queues,
@@ -39,7 +38,7 @@ const QueueCardPlaylist = ({
 					else if (i === 0) variant = "TOP";
 					else if (i === queues.length - 1) variant = "BOTTOM";
 
-					let active = nowPlaying && i === nowPlaying.current_index;
+					const active = nowPlaying && i === nowPlaying.current_index;
 
 					return (
 						<QueueCard

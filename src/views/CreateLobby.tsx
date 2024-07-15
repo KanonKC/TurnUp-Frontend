@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
 import CenterContainer from '@/layouts/CenterContainer'
 import { PlaylistService } from '@/services/apis/Playlist.service'
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const CreateLobby = () => {

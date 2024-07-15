@@ -1,7 +1,7 @@
+import { QueueServiceAPI, QueueVideoMetadata } from "@/types/apis/Queue.api";
+import { ListAPIResponse } from "@/types/ListAPI";
 import axios from "axios";
 import { BACKEND_URL } from "./BackendURL";
-import { QueueServiceAPI, QueueServiceAPIGetAll, QueueVideoMetadata } from "@/types/apis/Queue.api";
-import { ListAPIResponse } from "@/types/ListAPI";
 
 export const QueueService: QueueServiceAPI = {
     getAll(playlistId){

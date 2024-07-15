@@ -1,15 +1,13 @@
-import React from "react";
-import { Card } from "./ui/card";
-import { Trash, X } from "lucide-react";
-import { QueueVideoMetadata, QueueVideoMetadataDummy } from "@/types/apis/Queue.api";
-import { formatTime } from "@/services/FormatTime.service";
-import { PlaylistService } from "@/services/apis/Playlist.service";
 import { cn } from "@/lib/utils";
-import { CardVariant } from "@/types/CardVariant";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Button } from "./ui/button";
+import { formatTime } from "@/services/FormatTime.service";
 import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
+import { CardVariant } from "@/types/CardVariant";
+import { QueueVideoMetadata, QueueVideoMetadataDummy } from "@/types/apis/Queue.api";
+import { Trash } from "lucide-react";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "./ui/dialog";
 
 const QueueCard = ({
 	variant = "MID",
