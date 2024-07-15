@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { YoutubeService } from "@/services/Youtube.service";
 import { QueueService } from "@/services/apis/Queue.service";
 import { YoutubeSearchService } from "@/services/apis/YoutubeSearch.service";
-import {
-	YoutubePlaylistSearchResult,
-	YoutubeQuerySearchResult,
-} from "@/types/apis/Youtube.api";
-import { useParams } from "react-router-dom";
 import socket from "@/socket";
-import SearchVideoDialog from "./SearchVideoDialog";
 import { YoutubeBaseAttributes } from "@/types/apis/YoutubeSearch.api";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import SearchVideoDialog from "./SearchVideoDialog";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const YoutubeQueueInput = () => {
 	const { playlistId } = useParams();
@@ -19,7 +15,7 @@ const YoutubeQueueInput = () => {
 	const [loading, setLoading] = useState(false);
 	const [buttonLabel, setButtonLabel] = useState("Add Music");
     const [searchType, setSearchType] = useState<"VIDEO" | "SEARCH" | "PLAYLIST">("VIDEO");
-	const [openDialog, setOpenDialog] = useState(false);
+	// const [openDialog, setOpenDialog] = useState(false);
     const [isEdited, setIsEdited] = useState(false);
 
 	const [searchVideoResult, setSearchVideoResult] = useState<
@@ -33,6 +29,9 @@ const YoutubeQueueInput = () => {
 			setLoading(false);
 			socket.emit("reloadQueuesInPlaylist", playlistId);
 		});
+
+		// Remove this
+		loading
 	};
 
 	const handleOnClickButton = async () => {
@@ -87,7 +86,7 @@ const YoutubeQueueInput = () => {
                 </Button>
             ) : (<SearchVideoDialog
 				searchVideos={searchVideoResult}
-				open={openDialog}
+				// open={openDialog}
 			>
 				<Button disabled={value === ""} onClick={handleOnClickButton}>
 					{buttonLabel}

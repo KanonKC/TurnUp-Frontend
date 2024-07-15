@@ -1,8 +1,6 @@
-import React from 'react'
-import { Button } from './ui/button'
-import { PlaylistService } from '@/services/apis/Playlist.service'
 import { QueueService } from '@/services/apis/Queue.service'
 import socket from '@/socket'
+import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from './ui/dialog'
 
 const ClearPlaylistButton = ({

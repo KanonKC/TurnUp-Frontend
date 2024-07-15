@@ -1,15 +1,15 @@
+import { YoutubeBaseAttributes } from "@/types/apis/YoutubeSearch.api";
 import React from "react";
+import AddQueueCardGroup from "./AddQueueCardGroup";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import YoutubeQueueInput from "./YoutubeQueueInput";
-import AddQueueCardGroup from "./AddQueueCardGroup";
-import { YoutubeBaseAttributes, YoutubeBaseAttributesDummy } from "@/types/apis/YoutubeSearch.api";
 
 const SearchVideoDialog = ({
-	open=false,
+	// open=false,
 	searchVideos=[],
 	children,
 }:{
-	open?:boolean
+	// open?:boolean
 	searchVideos?: YoutubeBaseAttributes[];
 	children: React.ReactNode
 }) => {

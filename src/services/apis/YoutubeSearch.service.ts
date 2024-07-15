@@ -1,7 +1,7 @@
-import { SearchAPISearchByPlaylistIDResponse, SearchAPISearchByQueryResponse, YoutubeBaseAttributes, YoutubeSearchServiceAPI } from "@/types/apis/YoutubeSearch.api";
+import { YoutubeBaseAttributes, YoutubeSearchServiceAPI } from "@/types/apis/YoutubeSearch.api";
+import { ListAPIResponse } from "@/types/ListAPI";
 import axios from "axios";
 import { BACKEND_URL } from "./BackendURL";
-import { ListAPIResponse } from "@/types/ListAPI";
 
 export const YoutubeSearchService: YoutubeSearchServiceAPI = {
     searchByQuery(query) {
