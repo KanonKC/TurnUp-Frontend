@@ -57,7 +57,7 @@ const QueueCard = ({
 
 	const handleRemoveMusic = () => {
 		QueueService.remove(queueVideoMetadata.id).then(() => {
-			socket.emit("reloadQueuesInPlaylist", queueVideoMetadata.playlist_id);
+			socket.emit("reloadQueuesInPlaylist", queueVideoMetadata.playlistId);
 		})
 	}
 
@@ -71,16 +71,16 @@ const QueueCard = ({
 				<div className="w-1/5" onClick={onClick}>
 					<img
 						className={imgCustomCSS()}
-						src={queueVideoMetadata.video.thumbnail}
+						src={queueVideoMetadata.youtubeVideo.thumbnail}
 					/>
 				</div>
 				<div className="w-4/5 mx-2 flex justify-between items-center">
 					<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
-						<div className="text-md">{queueVideoMetadata.video.title}</div>
-						<div className="text-sm text-gray-400">{queueVideoMetadata.video.channel_title}</div>
+						<div className="text-md">{queueVideoMetadata.youtubeVideo.title}</div>
+						<div className="text-sm text-gray-400">{queueVideoMetadata.youtubeVideo.channelTitle}</div>
 					</div>
 					<div className="flex items-center gap-3 mr-3">
-						<div className="text-md">{formatTime(queueVideoMetadata.video.duration)}</div>
+						<div className="text-md">{formatTime(queueVideoMetadata.youtubeVideo.duration)}</div>
 						{!readOnly && 
 							<Dialog>
 								<DialogTrigger>

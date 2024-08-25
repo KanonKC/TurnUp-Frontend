@@ -38,7 +38,7 @@ const QueueCardPlaylist = ({
 					else if (i === 0) variant = "TOP";
 					else if (i === queues.length - 1) variant = "BOTTOM";
 
-					const active = nowPlaying && i === nowPlaying.current_index;
+					const active = nowPlaying && i === nowPlaying.currentIndex;
 
 					return (
 						<QueueCard

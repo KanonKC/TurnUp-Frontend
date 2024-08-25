@@ -10,7 +10,7 @@ import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { MonitorPlay } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const LobbyRoom = () => {
@@ -22,22 +22,21 @@ const LobbyRoom = () => {
 
     const navigate = useNavigate();
 
-    const load = () => {
+    const load = useCallback(() => {
 
 		if (!playlistId) return;
-
 		QueueService.getAll(playlistId)
 			.then((response) => {
 				setQueues(response.data.data);
 				return PlaylistService.get(playlistId);
 			})
 			.then((response) => {
-				console.log("RESPONSE", response.data);
 				setnowPlaying(response.data);
 			});
-	};
+	}, [playlistId]);
 
     useEffect(() => {
+
 		load();
 
 		socket.on("reloadQueuesInPlaylist", (socketPlaylistId: string) => {
@@ -49,8 +48,8 @@ const LobbyRoom = () => {
 		return () => {
 			socket.off("reloadQueuesInPlaylist");
 		}
-	}, []);
-    
+	}, [load, playlistId]);
+
     return (
         <ValidLobbyContainer>
             <CenterContainer>
@@ -72,7 +71,7 @@ const LobbyRoom = () => {
                     <div className="font-bold mb-1">NOW PLAYING</div>
                     <div className="now-playing-border">
                     <QueueCard 
-                        queueVideoMetadata={queues[nowPlaying?.current_index || 0]}
+                        queueVideoMetadata={queues[nowPlaying?.currentIndex || 0]}
                         readOnly
                         variant="ROUND"
                         />
