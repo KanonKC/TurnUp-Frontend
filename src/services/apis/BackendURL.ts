@@ -1,2 +1,2 @@
-export const BACKEND_URL = "http://localhost:8000" // String(import.meta.env.VITE_BACKEND_URL);
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_SERVER_URL // String(import.meta.env.VITE_BACKEND_URL);
 
