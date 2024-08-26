@@ -2,8 +2,9 @@ import { AxiosResponse } from "axios";
 
 export interface PlaylistModel {
     id: string;
-    code: string;
-    current_index: number | null;
+    type: string;
+    currentIndex: number | null;
+    createdAt: Date;
 }
 
 export interface PlaylistModelWithCurrentVideo extends PlaylistModel {

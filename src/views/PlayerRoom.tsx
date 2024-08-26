@@ -10,7 +10,7 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PlayerRoom = () => {
@@ -21,12 +21,13 @@ const PlayerRoom = () => {
 
 	// const targetId = "21b5cb52-f3aa-41c5-8be9-30f832c0be0f"
 
-	const load = () => {
+	const load = useCallback(() => {
 
 		if (!playlistId) return;
 
 		QueueService.getAll(playlistId)
 			.then((response) => {
+                console.log("RESPONSE Q", response.data);
 				setQueues(response.data.data);
 				return PlaylistService.get(playlistId);
 			})
@@ -34,7 +35,7 @@ const PlayerRoom = () => {
 				console.log("RESPONSE", response.data);
 				setnowPlaying(response.data);
 			});
-	};
+	}, [playlistId]);
 
 	// useEffect(() => {
 	// 	load();
@@ -54,7 +55,7 @@ const PlayerRoom = () => {
 		return () => {
 			socket.off("reloadQueuesInPlaylist");
 		}
-	}, []);
+	}, [load, playlistId]);
 
 	// useEffect(() => {
 	// 	console.log("NOW PLAYING", nowPlaying);

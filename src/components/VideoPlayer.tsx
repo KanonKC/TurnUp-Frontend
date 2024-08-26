@@ -18,11 +18,11 @@ const VideoPlayer = ({
 
 		console.log("End")
 
-		if (!nowPlaying || nowPlaying.current_index === null) return;
+		if (!nowPlaying || nowPlaying.currentIndex === null) return;
 
 		console.log("Count up and go next")
 
-		QueueService.countUp(queues[nowPlaying.current_index].id).then(
+		QueueService.countUp(queues[nowPlaying.currentIndex].id).then(
 			(res) => {
 				console.log("Counted up")
 				console.log(res.data)
@@ -36,12 +36,12 @@ const VideoPlayer = ({
 	};
 
 	const handleURL = () => {
-		if (!nowPlaying || nowPlaying.current_index === null) return;
+		if (!nowPlaying || nowPlaying.currentIndex === null) return;
 
 		return `https://www.youtube.com/watch?v=${
 			queues.length > 0 &&
 			nowPlaying &&
-			queues[nowPlaying.current_index].video.youtube_id
+			queues[nowPlaying.currentIndex].youtubeVideo.youtubeId
 		}`;
 	};
 

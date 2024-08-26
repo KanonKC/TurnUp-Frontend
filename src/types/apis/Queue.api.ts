@@ -3,37 +3,37 @@ import { ListAPIResponse } from "../ListAPI"
 
 export type QueueVideoMetadata = {
     id: string
-    played_count: number
-    video_id: string
-    playlist_id: string
-    video: {
+    playedCount: number
+    youtubeVideoId: string
+    playlistId: string
+    youtubeVideo: {
         id: string
-        youtube_id: string
+        youtubeId: string
         title: string
-        channel_title: string
+        channelTitle: string
         description: string
         thumbnail: string
         duration: number
-        is_cleared: boolean
-        total_played: number
+        isCleared: boolean
+        totalPlayed: number
     }
 }
 
 export const QueueVideoMetadataDummy:QueueVideoMetadata = {
     id: "1",
-    played_count: 1,
-    video_id: "1",
-    playlist_id: "1",
-    video: {
+    playedCount: 1,
+    youtubeVideoId: "1",
+    playlistId: "1",
+    youtubeVideo: {
         id: "1",
-        youtube_id: "asddwasdw",
+        youtubeId: "asddwasdw",
         title: "asddwasdw",
-        channel_title: "asddwasdw",
+        channelTitle: "asddwasdw",
         description: "asddwasdw",
         thumbnail: "https://i.ytimg.com/vi/q6H3rxUA40Q/mqdefault.jpg",
         duration: 60,
-        is_cleared: false,
-        total_played: 5
+        isCleared: false,
+        totalPlayed: 5
     }
 }
 
