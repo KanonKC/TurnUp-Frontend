@@ -8,9 +8,13 @@ import ReactPlayer from "react-player";
 const VideoPlayer = ({
 	queues,
 	nowPlaying,
+    width="640px",
+    height="360px",
 }: {
 	queues: QueueVideoMetadata[];
 	nowPlaying: PlaylistModel | undefined;
+    width?: string;
+    height?: string;
 }) => {
 	const handleReady = () => {};
 
@@ -49,6 +53,8 @@ const VideoPlayer = ({
 		<div className="flex">
 			<div className="themed-border">
 				<ReactPlayer
+                    width={width}
+                    height={height}
 					light={true}
 					controls
 					playing

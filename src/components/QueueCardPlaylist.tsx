@@ -25,7 +25,7 @@ const QueueCardPlaylist = ({
 	}
 
 	return (
-		<ScrollArea className="h-[50vh] pr-5">
+		<ScrollArea className="h-[40vh] md:h-[50vh] md:pr-5">
 			{queues.length === 0 ? (
 				<div className="invisible">
 					<QueueCard />
