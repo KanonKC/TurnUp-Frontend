@@ -11,10 +11,10 @@ const CenterContainer = ({
 	hideBackButton?: boolean;
 }) => {
 	return (
-		<div className="flex h-screen relative">
+		<div className="flex h-screen justify-center relative">
 			{!hideBackButton && <BackButton/>}
 			<div
-				className={"m-auto " + className} /* className="m-auto w-1/2" */
+				className={"my-auto " + className} /* className="m-auto w-1/2" */
 			>
 				{children}
 			</div>

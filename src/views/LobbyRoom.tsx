@@ -14,16 +14,14 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const LobbyRoom = () => {
-
-    const [queues, setQueues] = useState<QueueVideoMetadata[]>([]);
+	const [queues, setQueues] = useState<QueueVideoMetadata[]>([]);
 	const [nowPlaying, setnowPlaying] = useState<PlaylistModel>();
 
 	const { playlistId } = useParams();
 
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    const load = useCallback(() => {
-
+	const load = useCallback(() => {
 		if (!playlistId) return;
 		QueueService.getAll(playlistId)
 			.then((response) => {
@@ -35,58 +33,63 @@ const LobbyRoom = () => {
 			});
 	}, [playlistId]);
 
-    useEffect(() => {
-
+	useEffect(() => {
 		load();
 
 		socket.on("reloadQueuesInPlaylist", (socketPlaylistId: string) => {
 			if (socketPlaylistId === playlistId) {
 				load();
 			}
-		})
+		});
 
 		return () => {
 			socket.off("reloadQueuesInPlaylist");
-		}
+		};
 	}, [load, playlistId]);
 
-    return (
-        <ValidLobbyContainer>
-            <CenterContainer>
+	return (
+		<ValidLobbyContainer>
+			<CenterContainer>
+				<Button
+					onClick={() => navigate("./player")}
+					className="absolute right-5 top-5"
+				>
+					Go to Player Room
+					<MonitorPlay size={20} className="ml-2" />
+				</Button>
+				<div className="my-5">
+					<h1 className="text-6xl text-center themed-color tracking-widest">
+						{playlistId}
+					</h1>
+				</div>
+				<div className="mx-2">
+					<div>
+						<YoutubeQueueInput />
+					</div>
 
-                <Button onClick={() => navigate("./player")} className="absolute right-5 top-5">Go to Player Room
+					<div className="my-3">
+						<div className="font-bold mb-1">NOW PLAYING</div>
+						<div className="now-playing-border">
+							<QueueCard
+								queueVideoMetadata={
+									queues[nowPlaying?.currentIndex || 0]
+								}
+								readOnly
+								variant="ROUND"
+							/>
+						</div>
+					</div>
 
-                    <MonitorPlay size={20} className="ml-2" />
-                </Button>
-                <div className="my-5">
-                    <h1 className="text-6xl text-center themed-color tracking-widest">
-                        {playlistId}
-                    </h1>
-                </div>
-                <div>
-                    <YoutubeQueueInput />
-                </div>
+					<div className="font-bold mb-1">QUEUE</div>
+					<QueueCardPlaylist
+						readOnly
+						queues={queues}
+						nowPlaying={nowPlaying}
+					/>
+				</div>
+			</CenterContainer>
+		</ValidLobbyContainer>
+	);
+};
 
-                <div className="my-3">
-                    <div className="font-bold mb-1">NOW PLAYING</div>
-                    <div className="now-playing-border">
-                    <QueueCard 
-                        queueVideoMetadata={queues[nowPlaying?.currentIndex || 0]}
-                        readOnly
-                        variant="ROUND"
-                        />
-                    </div>
-                </div>
-                
-                <div className="font-bold mb-1">QUEUE</div>
-                <QueueCardPlaylist
-                    readOnly
-                    queues={queues}
-                    nowPlaying={nowPlaying}
-                />
-            </CenterContainer>
-        </ValidLobbyContainer>
-    )
-}
-
-export default LobbyRoom
+export default LobbyRoom;
