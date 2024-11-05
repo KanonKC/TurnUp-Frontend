@@ -3,12 +3,12 @@ import { YoutubeServiceInterface } from "@/types/YoutubeServiceInterface";
 export const YoutubeService: YoutubeServiceInterface = {
 	extractURL(url) {
 		if (url.includes("youtu.be")) {
-			let url_div = url.split("youtu.be/");
+			const url_div = url.split("youtu.be/");
 			return url_div[1];
 		} else {
-			let url_div = url.split("?v=");
+			const url_div = url.split("?v=");
 			if (url_div.length !== 1) {
-				let query_div = url_div[1].split("&");
+				const query_div = url_div[1].split("&");
 				return query_div[0];
 			} else {
 				return url_div[0];
@@ -22,7 +22,7 @@ export const YoutubeService: YoutubeServiceInterface = {
 			if (!playlistReg.exec(url)) {
 				return "";
 			}
-			let result = playlistReg.exec(url);
+			const result = playlistReg.exec(url);
 
 			if (!result) {
 				return "";
@@ -45,7 +45,7 @@ export const YoutubeService: YoutubeServiceInterface = {
 		if (input.includes("youtu.be")) {
             return {
                 type: "VIDEO",
-                id: input.split("/")[3]
+                id: input.split("/")[3].split("?")[0]
             }
 		} else if (input.includes("list=")) {
 			const videoReg = /list=(.*?)&|list=(.*?)/;
