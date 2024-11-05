@@ -25,7 +25,7 @@ const QueueCardPlaylist = ({
 	}
 
 	return (
-		<ScrollArea className="h-[50vh] pr-5">
+		<ScrollArea className="h-[40vh] md:h-[50vh] md:pr-5">
 			{queues.length === 0 ? (
 				<div className="invisible">
 					<QueueCard />
@@ -38,7 +38,7 @@ const QueueCardPlaylist = ({
 					else if (i === 0) variant = "TOP";
 					else if (i === queues.length - 1) variant = "BOTTOM";
 
-					const active = nowPlaying && i === nowPlaying.current_index;
+					const active = nowPlaying && i === nowPlaying.currentIndex;
 
 					return (
 						<QueueCard

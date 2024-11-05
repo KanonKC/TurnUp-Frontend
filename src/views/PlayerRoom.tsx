@@ -10,7 +10,7 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PlayerRoom = () => {
@@ -19,14 +19,12 @@ const PlayerRoom = () => {
 
 	const { playlistId } = useParams();
 
-	// const targetId = "21b5cb52-f3aa-41c5-8be9-30f832c0be0f"
-
-	const load = () => {
-
+	const load = useCallback(() => {
 		if (!playlistId) return;
 
 		QueueService.getAll(playlistId)
 			.then((response) => {
+				console.log("RESPONSE Q", response.data);
 				setQueues(response.data.data);
 				return PlaylistService.get(playlistId);
 			})
@@ -34,13 +32,7 @@ const PlayerRoom = () => {
 				console.log("RESPONSE", response.data);
 				setnowPlaying(response.data);
 			});
-	};
-
-	// useEffect(() => {
-	// 	load();
-	// 	const timer = setInterval(load, 1000);
-	// 	return () => clearInterval(timer);
-	// }, []);
+	}, [playlistId]);
 
 	useEffect(() => {
 		load();
@@ -49,29 +41,28 @@ const PlayerRoom = () => {
 			if (socketPlaylistId === playlistId) {
 				load();
 			}
-		})
+		});
 
 		return () => {
 			socket.off("reloadQueuesInPlaylist");
-		}
-	}, []);
-
-	// useEffect(() => {
-	// 	console.log("NOW PLAYING", nowPlaying);
-	// },[nowPlaying])
+		};
+	}, [load, playlistId]);
 
 	return (
 		<ValidLobbyContainer>
 			<CenterContainer>
-				<div className="my-10">
-					<h1 className="text-6xl text-center themed-color tracking-widest">
+				<div className="mb-5 mt-10 md:my-10">
+					<h1 className="text-5xl md:text-6xl text-center themed-color tracking-widest">
 						{playlistId}
 					</h1>
 				</div>
-				<div className="flex items-center">
+				<div className="hidden md:flex items-center">
 					<div className="w-1/2 flex justify-center mr-10">
 						<div>
-							<VideoPlayer queues={queues} nowPlaying={nowPlaying} />
+							<VideoPlayer
+								queues={queues}
+								nowPlaying={nowPlaying}
+							/>
 						</div>
 					</div>
 					<div className="w-1/2 ml-10">
@@ -89,6 +80,27 @@ const PlayerRoom = () => {
 							</div>
 						</div>
 
+						<QueueCardPlaylist
+							queues={queues}
+							nowPlaying={nowPlaying}
+						/>
+					</div>
+				</div>
+
+				{/* Mobile View */}
+				<div className="block md:hidden">
+					<div className="flex justify-center">
+						<VideoPlayer
+							width="288px"
+							height="162px"
+							queues={queues}
+							nowPlaying={nowPlaying}
+						/>
+					</div>
+					<div className="m-2">
+						<YoutubeQueueInput showClearPlaylistButton/>
+					</div>
+					<div className="flex justify-center mx-2">
 						<QueueCardPlaylist
 							queues={queues}
 							nowPlaying={nowPlaying}

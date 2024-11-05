@@ -8,9 +8,13 @@ import ReactPlayer from "react-player";
 const VideoPlayer = ({
 	queues,
 	nowPlaying,
+    width="640px",
+    height="360px",
 }: {
 	queues: QueueVideoMetadata[];
 	nowPlaying: PlaylistModel | undefined;
+    width?: string;
+    height?: string;
 }) => {
 	const handleReady = () => {};
 
@@ -18,11 +22,11 @@ const VideoPlayer = ({
 
 		console.log("End")
 
-		if (!nowPlaying || nowPlaying.current_index === null) return;
+		if (!nowPlaying || nowPlaying.currentIndex === null) return;
 
 		console.log("Count up and go next")
 
-		QueueService.countUp(queues[nowPlaying.current_index].id).then(
+		QueueService.countUp(queues[nowPlaying.currentIndex].id).then(
 			(res) => {
 				console.log("Counted up")
 				console.log(res.data)
@@ -36,12 +40,12 @@ const VideoPlayer = ({
 	};
 
 	const handleURL = () => {
-		if (!nowPlaying || nowPlaying.current_index === null) return;
+		if (!nowPlaying || nowPlaying.currentIndex === null) return;
 
 		return `https://www.youtube.com/watch?v=${
 			queues.length > 0 &&
 			nowPlaying &&
-			queues[nowPlaying.current_index].video.youtube_id
+			queues[nowPlaying.currentIndex].youtubeVideo.youtubeId
 		}`;
 	};
 
@@ -49,6 +53,8 @@ const VideoPlayer = ({
 		<div className="flex">
 			<div className="themed-border">
 				<ReactPlayer
+                    width={width}
+                    height={height}
 					light={true}
 					controls
 					playing
