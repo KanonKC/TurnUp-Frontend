@@ -77,7 +77,7 @@ const QueueCard = ({
 				<div className="w-4/5 ml-[1px] md:mx-2 flex justify-between items-center">
 					<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
 						<div className="text-[8px] md:text-base">{queueVideoMetadata.youtubeVideo.title}</div>
-						<div className="text-[8px] md:text-sm text-gray-400">{queueVideoMetadata.youtubeVideo.channelTitle}</div>
+						<div className="text-[8px] md:text-sm text-neutral-400">{queueVideoMetadata.youtubeVideo.channelTitle}</div>
 					</div>
 					<div className="flex items-center gap-3 mr-3">
 						<div className="hidden md:block text-sm md:text-md">{formatTime(queueVideoMetadata.youtubeVideo.duration)}</div>

@@ -54,10 +54,10 @@ const QueueCardPlaylist = ({
 				<div className="border h-1 invisible">
 					<QueueCard />
 				</div>
-				<div className="flex justify-center text-gray-500">
+				<div className="flex justify-center text-neutral-500">
 					<ListPlus size={32} />
 				</div>
-				<div className="text-xs text-center text-gray-500">
+				<div className="text-xs text-center text-neutral-500">
 					Queue is empty. Add some music to the queue!
 				</div>
 			</div>

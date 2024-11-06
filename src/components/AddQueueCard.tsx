@@ -75,7 +75,7 @@ const AddQueueCard = ({
 					<div className="w-4/5 mx-2 flex justify-between items-center">
 						<div className="mr-5 ml-1">
 							<div className="text-md">{videoMetadata.title}</div>
-							<div className="text-sm text-gray-400">
+							<div className="text-sm text-neutral-400">
 								{videoMetadata.channelTitle}
 							</div>
 						</div>
@@ -88,12 +88,12 @@ const AddQueueCard = ({
 				</div>
 			</Card>
 			<Card className={cn("sm:hidden rounded-lg", {
-                "bg-gray-500": isLoading
+                "bg-neutral-500": isLoading
             })} onClick={handleAddMusic}>
 				<img className="rounded-t-lg" src={videoMetadata.thumbnail} />
 				<div className="p-[8px]">
 					<div className="text-sm">{videoMetadata.title}</div>
-					<div className="text-xs text-gray-400">
+					<div className="text-xs text-neutral-400">
 						{videoMetadata.channelTitle}
 					</div>
 				</div>
