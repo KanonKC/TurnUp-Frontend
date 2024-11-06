@@ -1,3 +1,4 @@
+import RecentlyVisitedPlaylistList from "@/components/RecentlyVisitedPlaylistList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import CenterContainer from "@/layouts/CenterContainer";
@@ -27,6 +28,7 @@ const Home = () => {
 				>
 					Join an existing Lobby
 				</Button>
+                <RecentlyVisitedPlaylistList />
 			</div>
 		</CenterContainer>
 	);
