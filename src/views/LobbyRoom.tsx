@@ -1,6 +1,7 @@
 import QueueCard from "@/components/QueueCard";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
 import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
@@ -69,15 +70,20 @@ const LobbyRoom = () => {
 
 					<div className="my-3">
 						<div className="font-bold mb-1">NOW PLAYING</div>
-						<div className="now-playing-border">
-							<QueueCard
-								queueVideoMetadata={
-									queues[nowPlaying?.currentIndex || 0]
-								}
-								readOnly
-								variant="ROUND"
-							/>
-						</div>
+						{nowPlaying?.currentIndex ||
+						nowPlaying?.currentIndex === 0 ? (
+							<div className="now-playing-border">
+								<QueueCard
+									queueVideoMetadata={queues[0]}
+									readOnly
+									variant="ROUND"
+								/>
+							</div>
+						) : (
+							<Card className="flex justify-center items-center h-[60px] rounded-md ">
+								<span className="text-gray-500 text-xs">No song is playing right now</span>
+							</Card>
+						)}
 					</div>
 
 					<div className="font-bold mb-1">QUEUE</div>

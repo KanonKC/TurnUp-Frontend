@@ -34,7 +34,8 @@ const ValidLobbyContainer = ({
         !isExisted ? (
             <CenterContainer>
                 <div className="flex justify-center"><MonitorX size={180}/></div>
-                <div className="text-2xl">Room code doesn't exist</div>
+                <div className="text-2xl">Room doesn't exist</div>
+                <div className="text-2xl text-center text-gray-400">{playlistId}</div>
             </CenterContainer>
         ) : (
             <>{children}</>
