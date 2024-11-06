@@ -54,7 +54,7 @@ const LobbyRoom = () => {
 
 	return (
 		<ValidLobbyContainer>
-			<CenterContainer>
+			<CenterContainer className="w-[800px]">
 				<Button
 					onClick={() => navigate("./player")}
 					className="absolute right-5 top-5"
@@ -67,7 +67,7 @@ const LobbyRoom = () => {
 						{playlistId}
 					</h1>
 				</div>
-				<div className="mx-2">
+				<div className="mx-2 ">
 					<div>
 						<YoutubeQueueInput />
 					</div>
@@ -75,12 +75,12 @@ const LobbyRoom = () => {
 					<div className="my-3">
 						{isIndexDefined && (
 							<div>
-								<div className="font-bold mb-1">
-									NOW PLAYING
+								<div className="font-bold mb-1 text-sm md:text-md">
+									NOW <span className="themed-color">PLAYING</span>
 								</div>
-								<div className="now-playing-border">
+								<div className="">
 									<QueueCard
-										queueVideoMetadata={queues[0]}
+										queueVideoMetadata={queues[nowPlaying?.currentIndex ?? 0]}
 										readOnly
 										variant="ROUND"
 									/>
@@ -89,7 +89,9 @@ const LobbyRoom = () => {
 						)}
 					</div>
 
-					{queues.length > 0 && <div className="font-bold mb-1">QUEUE</div>}
+					{queues.length > 0 && (
+						<div className="font-bold mb-1 text-sm md:text-md">QUEUE</div>
+					)}
 					<QueueCardPlaylist
 						readOnly
 						queues={queues}

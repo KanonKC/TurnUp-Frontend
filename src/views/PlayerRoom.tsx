@@ -1,7 +1,7 @@
 import ClearPlaylistButton from "@/components/ClearPlaylistButton";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Separator } from "@/components/ui/separator";
-import VideoPlayer from "@/components/VideoPlayer";
+import VideoPlayerAndQRCodeCarousel from "@/components/VideoPlayerAndQRCodeCarousel";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
 import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
@@ -48,20 +48,18 @@ const PlayerRoom = () => {
 
 	return (
 		<ValidLobbyContainer>
-			<CenterContainer>
-				<div className="mb-5 mt-10 md:my-10">
+			<CenterContainer className="mx-5">
+				<div className="mb-4 mt-10 md:my-10">
 					<h1 className="text-5xl md:text-6xl text-center themed-color tracking-widest">
 						{playlistId}
 					</h1>
 				</div>
 				<div className="hidden md:flex items-center">
-					<div className="w-1/2 flex justify-center mr-10">
-						<div>
-							<VideoPlayer
-								queues={queues}
-								nowPlaying={nowPlaying}
-							/>
-						</div>
+					<div className="w-1/2 flex justify-center mr-5">
+						<VideoPlayerAndQRCodeCarousel
+							queues={queues}
+							nowPlaying={nowPlaying}
+						/>
 					</div>
 					<div className="w-1/2 ml-10">
 						<div className="flex mb-5">
@@ -88,15 +86,15 @@ const PlayerRoom = () => {
 				{/* Mobile View */}
 				<div className="block md:hidden">
 					<div className="flex justify-center">
-						<VideoPlayer
-							width="288px"
-							height="162px"
+						<VideoPlayerAndQRCodeCarousel
 							queues={queues}
 							nowPlaying={nowPlaying}
+							width="288px"
+							height="162px"
 						/>
 					</div>
 					<div className="m-2">
-						<YoutubeQueueInput showClearPlaylistButton/>
+						<YoutubeQueueInput showClearPlaylistButton />
 					</div>
 					<div className="flex justify-center mx-2">
 						<QueueCardPlaylist

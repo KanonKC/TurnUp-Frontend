@@ -52,14 +52,14 @@ const RecentlyVisitedPlaylistList = () => {
 				<div className="mb-[4px]">
 					<Card
 						onClick={() => navigateToPlaylistLobby(playlist.playlistId)}
-						className="px-[16px] py-[12px] rounded-md cursor-pointer hover:bg-gray-700"
+						className="px-[16px] py-[12px] rounded-md cursor-pointer hover:bg-neutral-700"
 					>
 						<div className="flex items-center justify-between">
 							<div>
 								<div className="font-bold">
 									{playlist.playlistId}
 								</div>
-								<div className="text-xs text-gray-500">
+								<div className="text-xs text-neutral-500">
 									{" "}
 									Visited {relativeDateText(playlist.date)}
 								</div>

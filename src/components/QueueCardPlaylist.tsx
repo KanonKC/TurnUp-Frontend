@@ -49,15 +49,12 @@ const QueueCardPlaylist = ({
 			<div className="pt-1"></div>
 		</ScrollArea>
 	) : (
-		<div className="h-[40vh] md:h-[50vh] rounded-md flex items-center">
-			<div>
-				<div className="border h-1 invisible">
-					<QueueCard />
-				</div>
-				<div className="flex justify-center text-gray-500">
+		<div className="h-[40vh] md:h-[50vh] rounded-md flex justify-center items-center">
+			<div className="">
+				<div className="flex justify-center text-neutral-500">
 					<ListPlus size={32} />
 				</div>
-				<div className="text-xs text-center text-gray-500">
+				<div className="text-xs text-center text-neutral-500">
 					Queue is empty. Add some music to the queue!
 				</div>
 			</div>

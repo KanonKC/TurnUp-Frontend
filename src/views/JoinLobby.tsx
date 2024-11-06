@@ -28,8 +28,8 @@ const JoinLobby = () => {
 	return (
 		<CenterContainer>
 			<div className="">
-				<div className="text-center text-4xl ">
-                    ENTER ROOM CODE
+				<div className="text-center text-xl ">
+                    Enter room code
                 </div>
 
 				<div className="my-5">
