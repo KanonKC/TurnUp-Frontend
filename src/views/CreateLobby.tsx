@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import CenterContainer from '@/layouts/CenterContainer'
 import { PlaylistService } from '@/services/apis/Playlist.service'
+import { pushVisitedPlaylistIds } from '@/util/LocalStorage'
 import { useNavigate } from 'react-router-dom'
 
 const CreateLobby = () => {
@@ -17,6 +18,7 @@ const CreateLobby = () => {
         }
 
         PlaylistService.create(randomId).then((response) => {
+            pushVisitedPlaylistIds(response.data.id)
             navigate(`/${response.data.id}/player`)
         })
     }

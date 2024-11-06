@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/input-otp";
 import CenterContainer from "@/layouts/CenterContainer";
 import { PlaylistService } from "@/services/apis/Playlist.service";
+import { pushVisitedPlaylistIds } from "@/util/LocalStorage";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const JoinLobby = () => {
 	const resolveRoomCode = useCallback(async () => {
 		PlaylistService.get(roomCode)
 			.then(() => {
+                pushVisitedPlaylistIds(roomCode);
 				navigate(`/${roomCode}`);
 			})
 			.catch(() => {});
