@@ -20,21 +20,13 @@ const VideoPlayer = ({
 
 	const handleEnd = () => {
 
-		console.log("End")
-
 		if (!nowPlaying || nowPlaying.currentIndex === null) return;
 
-		console.log("Count up and go next")
-
 		QueueService.countUp(queues[nowPlaying.currentIndex].id).then(
-			(res) => {
-				console.log("Counted up")
-				console.log(res.data)
+			() => {
 				return PlaylistService.play.algorithm(nowPlaying.id);
 			}
-		).then((res) => {
-			console.log("Algorithm")
-			console.log(res.data)
+		).then(() => {
 			socket.emit("reloadQueuesInPlaylist", nowPlaying.id);
 		});
 	};

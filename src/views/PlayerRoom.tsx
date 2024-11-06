@@ -24,12 +24,10 @@ const PlayerRoom = () => {
 
 		QueueService.getAll(playlistId)
 			.then((response) => {
-				console.log("RESPONSE Q", response.data);
 				setQueues(response.data.data);
 				return PlaylistService.get(playlistId);
 			})
 			.then((response) => {
-				console.log("RESPONSE", response.data);
 				setnowPlaying(response.data);
 			});
 	}, [playlistId]);
