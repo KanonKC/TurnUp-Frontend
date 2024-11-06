@@ -1,7 +1,6 @@
 import ClearPlaylistButton from "@/components/ClearPlaylistButton";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Separator } from "@/components/ui/separator";
-import VideoPlayer from "@/components/VideoPlayer";
 import VideoPlayerAndQRCodeCarousel from "@/components/VideoPlayerAndQRCodeCarousel";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";

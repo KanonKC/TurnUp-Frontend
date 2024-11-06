@@ -1,15 +1,14 @@
-import React from "react";
 import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
 } from "@/components/ui/carousel";
-import VideoPlayer from "./VideoPlayer";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
+import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { useParams } from "react-router-dom";
+import VideoPlayer from "./VideoPlayer";
 
 const VideoPlayerAndQRCodeCarousel = ({
 	queues,
