@@ -17,6 +17,8 @@ const ValidLobbyContainer = ({
 
         if (!playlistId) return;
 
+        document.title = `${playlistId} | Turn up`
+
         PlaylistService.get(playlistId).then(response => {
             if (response.status === 200) {
                 setIsExisted(true);
@@ -27,7 +29,6 @@ const ValidLobbyContainer = ({
             }
         })
     },[playlistId])
-
 
 	return (
         isExisted === undefined ? <div></div> :
