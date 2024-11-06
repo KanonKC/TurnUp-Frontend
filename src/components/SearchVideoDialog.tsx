@@ -6,23 +6,21 @@ import YoutubeQueueInput from "./YoutubeQueueInput";
 
 const SearchVideoDialog = ({
 	// open=false,
-	searchVideos=[],
+	searchVideos = [],
 	children,
-}:{
+}: {
 	// open?:boolean
 	searchVideos?: YoutubeBaseAttributes[];
-	children: React.ReactNode
+	children: React.ReactNode;
 }) => {
 	return (
 		<Dialog>
-			<DialogTrigger>
-				{children}
-			</DialogTrigger>
+			<DialogTrigger>{children}</DialogTrigger>
 			<DialogContent className="max-w-[800px]">
-				<YoutubeQueueInput />
-				<AddQueueCardGroup
-					searchVideos={searchVideos}
-				/>
+				<div className="mt-[24px]">
+					<YoutubeQueueInput />
+				</div>
+				<AddQueueCardGroup searchVideos={searchVideos} />
 			</DialogContent>
 		</Dialog>
 	);
