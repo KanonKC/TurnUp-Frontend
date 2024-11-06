@@ -1,7 +1,6 @@
 import QueueCard from "@/components/QueueCard";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
 import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
