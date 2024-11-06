@@ -49,11 +49,8 @@ const QueueCardPlaylist = ({
 			<div className="pt-1"></div>
 		</ScrollArea>
 	) : (
-		<div className="h-[40vh] md:h-[50vh] rounded-md flex items-center">
-			<div>
-				<div className="border h-1 invisible">
-					<QueueCard />
-				</div>
+		<div className="h-[40vh] md:h-[50vh] rounded-md flex justify-center items-center">
+			<div className="">
 				<div className="flex justify-center text-neutral-500">
 					<ListPlus size={32} />
 				</div>
