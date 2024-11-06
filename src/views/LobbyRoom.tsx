@@ -11,7 +11,7 @@ import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { MonitorPlay } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const LobbyRoom = () => {
@@ -21,6 +21,11 @@ const LobbyRoom = () => {
 	const { playlistId } = useParams();
 
 	const navigate = useNavigate();
+
+	const isIndexDefined = useMemo(
+		() => nowPlaying?.currentIndex || nowPlaying?.currentIndex === 0,
+		[nowPlaying]
+	);
 
 	const load = useCallback(() => {
 		if (!playlistId) return;
@@ -69,24 +74,23 @@ const LobbyRoom = () => {
 					</div>
 
 					<div className="my-3">
-						<div className="font-bold mb-1">NOW PLAYING</div>
-						{nowPlaying?.currentIndex ||
-						nowPlaying?.currentIndex === 0 ? (
-							<div className="now-playing-border">
-								<QueueCard
-									queueVideoMetadata={queues[0]}
-									readOnly
-									variant="ROUND"
-								/>
+						{isIndexDefined && (
+							<div>
+								<div className="font-bold mb-1">
+									NOW PLAYING
+								</div>
+								<div className="now-playing-border">
+									<QueueCard
+										queueVideoMetadata={queues[0]}
+										readOnly
+										variant="ROUND"
+									/>
+								</div>
 							</div>
-						) : (
-							<Card className="flex justify-center items-center h-[60px] rounded-md ">
-								<span className="text-gray-500 text-xs">No song is playing right now</span>
-							</Card>
 						)}
 					</div>
 
-					<div className="font-bold mb-1">QUEUE</div>
+					{queues.length > 0 && <div className="font-bold mb-1">QUEUE</div>}
 					<QueueCardPlaylist
 						readOnly
 						queues={queues}
