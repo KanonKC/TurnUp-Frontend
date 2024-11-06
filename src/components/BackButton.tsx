@@ -8,7 +8,7 @@ const BackButton = () => {
 
   return (
     <div className='top-5 left-5 absolute'>
-    <Button variant="outline" onClick={() => navigate(-1)}>
+    <Button variant="outline" onClick={() => navigate("./../")}>
       <ArrowLeft className='mr-2' size={20} />
         Go Back
       </Button>

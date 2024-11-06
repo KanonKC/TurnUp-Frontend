@@ -28,7 +28,11 @@ const JoinLobby = () => {
 	return (
 		<CenterContainer>
 			<div className="">
-				<div>
+				<div className="text-center text-4xl ">
+                    ENTER ROOM CODE
+                </div>
+
+				<div className="my-5">
 					<InputOTP
 						onComplete={resolveRoomCode}
 						onChange={(e) => handleChange(e)}
@@ -46,7 +50,7 @@ const JoinLobby = () => {
 					</InputOTP>
 				</div>
 
-				<div className="flex justify-center mt-5">
+				<div className="flex justify-center">
 					<Button
 						disabled={roomCode.length !== 6}
 						onClick={resolveRoomCode}
