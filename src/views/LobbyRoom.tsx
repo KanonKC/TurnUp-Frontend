@@ -75,7 +75,7 @@ const LobbyRoom = () => {
 					<div className="my-3">
 						{isIndexDefined && (
 							<div>
-								<div className="font-bold mb-1">
+								<div className="font-bold mb-1 text-sm md:text-md">
 									NOW <span className="themed-color">PLAYING</span>
 								</div>
 								<div className="">
@@ -90,7 +90,7 @@ const LobbyRoom = () => {
 					</div>
 
 					{queues.length > 0 && (
-						<div className="font-bold mb-1">QUEUE</div>
+						<div className="font-bold mb-1 text-sm md:text-md">QUEUE</div>
 					)}
 					<QueueCardPlaylist
 						readOnly
