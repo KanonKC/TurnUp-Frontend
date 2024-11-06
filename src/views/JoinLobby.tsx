@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/input-otp";
 import CenterContainer from "@/layouts/CenterContainer";
 import { PlaylistService } from "@/services/apis/Playlist.service";
-import { pushVisitedPlaylistIds } from "@/util/LocalStorage";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +20,6 @@ const JoinLobby = () => {
 	const resolveRoomCode = useCallback(async () => {
 		PlaylistService.get(roomCode)
 			.then(() => {
-                pushVisitedPlaylistIds(roomCode);
 				navigate(`/${roomCode}`);
 			})
 			.catch(() => {});
@@ -30,7 +28,11 @@ const JoinLobby = () => {
 	return (
 		<CenterContainer>
 			<div className="">
-				<div>
+				<div className="text-center text-4xl ">
+                    ENTER ROOM CODE
+                </div>
+
+				<div className="my-5">
 					<InputOTP
 						onComplete={resolveRoomCode}
 						onChange={(e) => handleChange(e)}
@@ -48,7 +50,7 @@ const JoinLobby = () => {
 					</InputOTP>
 				</div>
 
-				<div className="flex justify-center mt-5">
+				<div className="flex justify-center">
 					<Button
 						disabled={roomCode.length !== 6}
 						onClick={resolveRoomCode}

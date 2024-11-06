@@ -3,6 +3,7 @@ import CenterContainer from "./CenterContainer";
 import { useParams } from "react-router-dom";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { MonitorX } from "lucide-react";
+import { pushVisitedPlaylistIds } from "@/util/LocalStorage";
 
 const ValidLobbyContainer = ({
     children
@@ -17,6 +18,7 @@ const ValidLobbyContainer = ({
 
         if (!playlistId) return;
 
+        pushVisitedPlaylistIds(playlistId)
         document.title = `${playlistId} | Turn up`
 
         PlaylistService.get(playlistId).then(response => {
