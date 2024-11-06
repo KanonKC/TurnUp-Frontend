@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 import SearchVideoDialog from "./SearchVideoDialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import ClearPlaylistButton from "./ClearPlaylistButton";
 
 const YoutubeQueueInput = ({
-	showClearPlaylistButton=false,
+	showClearPlaylistButton = false,
 }: {
 	showClearPlaylistButton?: boolean;
 }) => {
@@ -92,7 +92,7 @@ const YoutubeQueueInput = ({
 				<Button disabled={value === ""} onClick={handleOnClickButton}>
 					<span className="hidden md:block">{buttonLabel}</span>
 					<span className="block md:hidden">
-						<Search size={18} />
+						<Plus size={18} />
 					</span>
 				</Button>
 			) : (
@@ -104,7 +104,10 @@ const YoutubeQueueInput = ({
 						disabled={value === ""}
 						onClick={handleOnClickButton}
 					>
-						<span>{buttonLabel}</span>
+						<span className="hidden md:block">{buttonLabel}</span>
+						<span className="block md:hidden">
+							<Search size={18} />
+						</span>
 					</Button>
 				</SearchVideoDialog>
 			)}
