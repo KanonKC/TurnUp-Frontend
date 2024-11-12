@@ -41,6 +41,13 @@ export type QueueServiceAPIGetAll = {
     queues: QueueVideoMetadata[]
 }
 
+export interface ReOrderQueuePayload {
+    queues: {
+        queueId: string;
+        order: number;
+    }[]
+}
+
 // export type 
 
 export type QueueServiceAPI = {
@@ -50,4 +57,5 @@ export type QueueServiceAPI = {
     countUp: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>> // ****
     get: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>>
     remove: (queueId: string) => Promise<AxiosResponse<null>>
+    reOrder: (playlistId: string, payload: ReOrderQueuePayload) => Promise<AxiosResponse<QueueVideoMetadata[]>>
 }

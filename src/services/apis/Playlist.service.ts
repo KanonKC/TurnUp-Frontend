@@ -15,6 +15,10 @@ export const PlaylistService: PlaylistServiceAPI = {
         index(playlistId,index){
             return axios.put<PlaylistModel>(`${BACKEND_URL}/playlists/${playlistId}/play/index/${index}`)
         },
+
+        queue(playlistId, queueId) {
+            return axios.put<PlaylistModel>(`${BACKEND_URL}/playlists/${playlistId}/play/queues/${queueId}`)
+        },
         
         next(playlistId){
             return axios.put<PlaylistModel>(`${BACKEND_URL}/playlists/${playlistId}/play/next`)

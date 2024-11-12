@@ -48,13 +48,13 @@ const PlayerRoom = () => {
 
 	return (
 		<ValidLobbyContainer>
-			<CenterContainer className="mx-5">
-				<div className="mb-4 mt-10 md:my-10">
-					<h1 className="text-5xl md:text-6xl text-center themed-color tracking-widest">
+			<CenterContainer className="mx-5 2xl:mx-32">
+				<div className="mb-4 mt-10 lg:my-10">
+					<h1 className="text-5xl lg:text-6xl text-center themed-color tracking-widest">
 						{playlistId}
 					</h1>
 				</div>
-				<div className="hidden md:flex items-center">
+				<div className="hidden lg:flex items-center">
 					<div className="w-1/2 flex justify-center mr-5">
 						<VideoPlayerAndQRCodeCarousel
 							queues={queues}
@@ -84,7 +84,7 @@ const PlayerRoom = () => {
 				</div>
 
 				{/* Mobile View */}
-				<div className="block md:hidden">
+				<div className="block lg:hidden">
 					<div className="flex justify-center">
 						<VideoPlayerAndQRCodeCarousel
 							queues={queues}

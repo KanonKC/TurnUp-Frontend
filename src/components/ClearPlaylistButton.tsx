@@ -28,8 +28,8 @@ const ClearPlaylistButton = ({ playlistId }: { playlistId: string }) => {
 		<Dialog>
 			<DialogTrigger>
 				<Button className="text-white bg-red-600 hover:bg-red-700">
-                    <span className="hidden md:block">Clear Playlist</span>
-                    <span className="block md:hidden"><ListX size={18}/></span>
+                    <span className="hidden lg:block">Clear Playlist</span>
+                    <span className="block lg:hidden"><ListX size={18}/></span>
 				</Button>
 			</DialogTrigger>
 			<DialogContent>

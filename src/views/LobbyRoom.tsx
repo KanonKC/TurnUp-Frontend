@@ -22,7 +22,7 @@ const LobbyRoom = () => {
 	const navigate = useNavigate();
 
 	const isIndexDefined = useMemo(
-		() => nowPlaying?.currentIndex || nowPlaying?.currentIndex === 0,
+		() => nowPlaying?.currentQueueId,
 		[nowPlaying]
 	);
 
@@ -73,14 +73,17 @@ const LobbyRoom = () => {
 					</div>
 
 					<div className="my-3">
-						{isIndexDefined && (
+						{isIndexDefined && nowPlaying?.currentQueue && (
 							<div>
-								<div className="font-bold mb-1 text-sm md:text-md">
-									NOW <span className="themed-color">PLAYING</span>
+								<div className="font-bold mb-1 text-sm lg:text-md">
+									NOW{" "}
+									<span className="themed-color">
+										PLAYING
+									</span>
 								</div>
 								<div className="">
 									<QueueCard
-										queueVideoMetadata={queues[nowPlaying?.currentIndex ?? 0]}
+										queueVideoMetadata={nowPlaying?.currentQueue}
 										readOnly
 										variant="ROUND"
 									/>
@@ -90,7 +93,9 @@ const LobbyRoom = () => {
 					</div>
 
 					{queues.length > 0 && (
-						<div className="font-bold mb-1 text-sm md:text-md">QUEUE</div>
+						<div className="font-bold mb-1 text-sm lg:text-md">
+							QUEUE
+						</div>
 					)}
 					<QueueCardPlaylist
 						readOnly

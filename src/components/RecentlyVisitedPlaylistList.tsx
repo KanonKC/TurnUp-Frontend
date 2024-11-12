@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const RecentlyVisitedPlaylistList = () => {
 	function relativeDateText(date: Date) {
 		const diff = new Date().getTime() - date.getTime();
-		console.log("Diff", diff);
 		const seconds = Math.floor(diff / 1000);
 		const minutes = Math.floor(seconds / 60);
 		const hours = Math.floor(minutes / 60);

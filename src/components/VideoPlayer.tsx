@@ -20,11 +20,12 @@ const VideoPlayer = ({
 
 	const handleEnd = () => {
 
-		if (!nowPlaying || nowPlaying.currentIndex === null) return;
+		if (!nowPlaying || !nowPlaying.currentQueueId) return;
 
-		QueueService.countUp(queues[nowPlaying.currentIndex].id).then(
+		QueueService.countUp(nowPlaying.currentQueueId).then(
 			() => {
-				return PlaylistService.play.algorithm(nowPlaying.id);
+				// return PlaylistService.play.algorithm(nowPlaying.id);
+                return PlaylistService.play.next(nowPlaying.id);
 			}
 		).then(() => {
 			socket.emit("reloadQueuesInPlaylist", nowPlaying.id);
@@ -32,12 +33,12 @@ const VideoPlayer = ({
 	};
 
 	const handleURL = () => {
-		if (!nowPlaying || nowPlaying.currentIndex === null) return;
+		if (!nowPlaying || !nowPlaying.currentQueueId) return;
 
 		return `https://www.youtube.com/watch?v=${
 			queues.length > 0 &&
 			nowPlaying &&
-			queues[nowPlaying.currentIndex].youtubeVideo.youtubeId
+            nowPlaying.currentQueue?.youtubeVideo.youtubeId
 		}`;
 	};
 
