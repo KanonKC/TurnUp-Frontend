@@ -62,7 +62,7 @@ const QueueCardPlaylist = ({
 	return queues.length > 0 ? (
 		<ScrollArea className={cn("h-[40vh] lg:h-[50vh] lg:pr-5")}>
 			<ReactSortable
-				disabled={isLoading}
+				disabled={isLoading || readOnly}
 				onEnd={handleSortableEnd}
 				animation={150}
 				list={sortableQueues}
