@@ -49,7 +49,7 @@ const PlayerRoom = () => {
 
 	return (
 		<ValidLobbyContainer>
-			<CenterContainer className="mx-5">
+			<CenterContainer className="mx-5 2xl:mx-32">
 				<div className="mb-4 mt-10 lg:my-10">
 					<h1 className="text-5xl lg:text-6xl text-center themed-color tracking-widest">
 						{playlistId}
