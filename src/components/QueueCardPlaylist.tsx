@@ -6,7 +6,7 @@ import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { CardVariant } from "@/types/CardVariant";
 import { ListPlus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ReactSortable, SortableEvent } from "react-sortablejs";
+import { ReactSortable } from "react-sortablejs";
 import QueueCard from "./QueueCard";
 import { ScrollArea } from "./ui/scroll-area";
 import { QueueService } from "@/services/apis/Queue.service";
