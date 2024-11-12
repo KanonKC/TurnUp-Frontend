@@ -16,8 +16,8 @@ import {
 	DialogDescription,
 	DialogFooter,
 	DialogTitle,
-	DialogTrigger,
 } from "./ui/dialog";
+import { useState } from "react";
 
 const QueueCard = ({
 	variant = "MID",
@@ -32,6 +32,8 @@ const QueueCard = ({
 	onClick?: () => void;
 	readOnly?: boolean;
 }) => {
+	const [isOpenDialog, setIsOpenDialog] = useState(false);
+
 	const cardCustomCSS = () => {
 		let css = "";
 
@@ -62,6 +64,13 @@ const QueueCard = ({
 		}
 	};
 
+	const handleClickDeleteButton = (
+		e: React.MouseEvent<HTMLDivElement, MouseEvent>
+	) => {
+		e.stopPropagation();
+		setIsOpenDialog(true);
+	};
+
 	const handleRemoveMusic = () => {
 		QueueService.remove(queueVideoMetadata.id).then(() => {
 			socket.emit(
@@ -71,37 +80,41 @@ const QueueCard = ({
 		});
 	};
 
+
 	return (
-		<Card
-			className={cn(cardCustomCSS(), "", {
-				"cursor-pointer": !readOnly,
-			})}
-		>
-			<div className="flex">
-				<div className="w-1/5" onClick={onClick}>
-					<img
-						className={imgCustomCSS()}
-						src={queueVideoMetadata.youtubeVideo.thumbnail}
-					/>
-				</div>
-				<div className="w-4/5 ml-[1px] lg:mx-2 flex justify-between items-center">
-					<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
-						<div className="text-[9px] lg:text-[14px] 2xl:text-[16px]">
-							{queueVideoMetadata.youtubeVideo.title}
-						</div>
-						<div className="text-[8px] lg:text-[12px] 2xl:text-[14px] text-neutral-400">
-							{queueVideoMetadata.youtubeVideo.channelTitle}
-						</div>
+		<div>
+			<Card
+				onClick={onClick}
+				className={cn(cardCustomCSS(), "", {
+					"cursor-pointer": !readOnly,
+				})}
+			>
+				<div className="flex">
+					<div className="w-1/5">
+						<img
+							className={imgCustomCSS()}
+							src={queueVideoMetadata.youtubeVideo.thumbnail}
+						/>
 					</div>
-					<div className="flex items-center gap-3 mr-3">
-						<div className="hidden lg:block text-sm lg:text-md">
-							{formatTime(
-								queueVideoMetadata.youtubeVideo.duration
-							)}
+					<div className="w-4/5 ml-[1px] lg:mx-2 flex justify-between items-center">
+						<div className="mr-5 ml-1 w-5/6">
+							<div className="text-[9px] lg:text-[14px] 2xl:text-[16px]">
+								{queueVideoMetadata.youtubeVideo.title}
+							</div>
+							<div className="text-[8px] lg:text-[12px] 2xl:text-[14px] text-neutral-400">
+								{queueVideoMetadata.youtubeVideo.channelTitle}
+							</div>
 						</div>
-						{!readOnly && (
-							<Dialog>
-								<DialogTrigger>
+						<div className="flex items-center gap-3 mr-3">
+							<div className="hidden lg:block text-sm lg:text-md">
+								{formatTime(
+									queueVideoMetadata.youtubeVideo.duration
+								)}
+							</div>
+							{!readOnly && (
+								<div
+									onClick={(e) => handleClickDeleteButton(e)}
+								>
 									<Trash
 										className="hidden lg:block cursor-pointer hover:text-red-500"
 										size={20}
@@ -110,35 +123,35 @@ const QueueCard = ({
 										className="block lg:hidden cursor-pointer hover:text-red-500"
 										size={12}
 									/>
-								</DialogTrigger>
-								<DialogContent>
-									<DialogTitle>
-										Remove Video Confirmation
-									</DialogTitle>
-									<DialogDescription>
-										<p>
-											Are you sure you want to remove this
-											video from the queue?
-										</p>
-										<b>This cannot be undone.</b>
-									</DialogDescription>
-									<DialogFooter>
-										<div className="flex justify-end mt-4">
-											<Button
-												onClick={handleRemoveMusic}
-												className="text-white bg-red-600 hover:bg-red-700"
-											>
-												Delete
-											</Button>
-										</div>
-									</DialogFooter>
-								</DialogContent>
-							</Dialog>
-						)}
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
-			</div>
-		</Card>
+			</Card>
+			<Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
+				<DialogContent>
+					<DialogTitle>Remove Video Confirmation</DialogTitle>
+					<DialogDescription>
+						<p>
+							Are you sure you want to remove <span className="text-white">"{queueVideoMetadata.youtubeVideo.title}"</span> from the
+							queue?
+						</p>
+						<b>This cannot be undone.</b>
+					</DialogDescription>
+					<DialogFooter>
+						<div className="flex justify-end mt-4">
+							<Button
+								onClick={handleRemoveMusic}
+								className="text-white bg-red-600 hover:bg-red-700"
+							>
+								Delete
+							</Button>
+						</div>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
+		</div>
 	);
 };
 
