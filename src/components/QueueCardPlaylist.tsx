@@ -60,7 +60,7 @@ const QueueCardPlaylist = ({
 	}, [queues]);
 
 	return queues.length > 0 ? (
-		<ScrollArea className={cn("h-[40vh] md:h-[50vh] md:pr-5")}>
+		<ScrollArea className={cn("h-[40vh] lg:h-[50vh] lg:pr-5")}>
 			<ReactSortable
 				disabled={isLoading}
 				onEnd={handleSortableEnd}
@@ -93,7 +93,7 @@ const QueueCardPlaylist = ({
 			</ReactSortable>
 		</ScrollArea>
 	) : (
-		<div className="h-[40vh] md:h-[50vh] rounded-md flex justify-center items-center">
+		<div className="h-[40vh] lg:h-[50vh] rounded-md flex justify-center items-center">
 			<div className="">
 				<div className="flex justify-center text-neutral-500">
 					<ListPlus size={32} />

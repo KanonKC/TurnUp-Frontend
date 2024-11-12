@@ -3,31 +3,40 @@ import { formatTime } from "@/services/FormatTime.service";
 import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
-import { QueueVideoMetadata, QueueVideoMetadataDummy } from "@/types/apis/Queue.api";
+import {
+	QueueVideoMetadata,
+	QueueVideoMetadataDummy,
+} from "@/types/apis/Queue.api";
 import { Trash } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "./ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogTitle,
+	DialogTrigger,
+} from "./ui/dialog";
 
 const QueueCard = ({
 	variant = "MID",
 	queueVideoMetadata = QueueVideoMetadataDummy,
 	active = false,
-	onClick=()=>{},
-	readOnly = false
+	onClick = () => {},
+	readOnly = false,
 }: {
 	variant?: CardVariant;
-	queueVideoMetadata?: QueueVideoMetadata
+	queueVideoMetadata?: QueueVideoMetadata;
 	active?: boolean;
-	onClick?: () => void
-	readOnly?: boolean
+	onClick?: () => void;
+	readOnly?: boolean;
 }) => {
-
 	const cardCustomCSS = () => {
-		let css = ""
+		let css = "";
 
 		if (active) {
-			css = "bg-[#4d4d4d] "
+			css = "bg-[#4d4d4d] ";
 		}
 
 		if (variant === "TOP") {
@@ -36,8 +45,7 @@ const QueueCard = ({
 			return css + "";
 		} else if (variant === "BOTTOM") {
 			return css + "rounded-b-lg ";
-		}
-		else if (variant === "ROUND") {
+		} else if (variant === "ROUND") {
 			return css + "rounded-lg ";
 		}
 	};
@@ -49,22 +57,24 @@ const QueueCard = ({
 			return "";
 		} else if (variant === "BOTTOM") {
 			return "rounded-bl-lg ";
-		}
-		else if (variant === "ROUND") {
+		} else if (variant === "ROUND") {
 			return "rounded-l-lg ";
 		}
 	};
 
 	const handleRemoveMusic = () => {
 		QueueService.remove(queueVideoMetadata.id).then(() => {
-			socket.emit("reloadQueuesInPlaylist", queueVideoMetadata.playlistId);
-		})
-	}
+			socket.emit(
+				"reloadQueuesInPlaylist",
+				queueVideoMetadata.playlistId
+			);
+		});
+	};
 
 	return (
 		<Card
-			className={cn(cardCustomCSS(),"",{
-				"cursor-pointer": !readOnly
+			className={cn(cardCustomCSS(), "", {
+				"cursor-pointer": !readOnly,
 			})}
 		>
 			<div className="flex">
@@ -74,33 +84,57 @@ const QueueCard = ({
 						src={queueVideoMetadata.youtubeVideo.thumbnail}
 					/>
 				</div>
-				<div className="w-4/5 ml-[1px] md:mx-2 flex justify-between items-center">
+				<div className="w-4/5 ml-[1px] lg:mx-2 flex justify-between items-center">
 					<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
-						<div className="text-[9px] md:text-[14px] xxl:text-[16px]">{queueVideoMetadata.youtubeVideo.title}</div>
-						<div className="text-[8px] md:text-[12px] xxl:text-[14px] text-neutral-400">{queueVideoMetadata.youtubeVideo.channelTitle}</div>
+						<div className="text-[9px] lg:text-[14px] 2xl:text-[16px]">
+							{queueVideoMetadata.youtubeVideo.title}
+						</div>
+						<div className="text-[8px] lg:text-[12px] 2xl:text-[14px] text-neutral-400">
+							{queueVideoMetadata.youtubeVideo.channelTitle}
+						</div>
 					</div>
 					<div className="flex items-center gap-3 mr-3">
-						<div className="hidden md:block text-sm md:text-md">{formatTime(queueVideoMetadata.youtubeVideo.duration)}</div>
-						{!readOnly && 
+						<div className="hidden lg:block text-sm lg:text-md">
+							{formatTime(
+								queueVideoMetadata.youtubeVideo.duration
+							)}
+						</div>
+						{!readOnly && (
 							<Dialog>
 								<DialogTrigger>
-									<Trash className="hidden md:block cursor-pointer hover:text-red-500" size={20}/>
-									<Trash className="block md:hidden cursor-pointer hover:text-red-500" size={12}/>
+									<Trash
+										className="hidden lg:block cursor-pointer hover:text-red-500"
+										size={20}
+									/>
+									<Trash
+										className="block lg:hidden cursor-pointer hover:text-red-500"
+										size={12}
+									/>
 								</DialogTrigger>
 								<DialogContent>
-									<DialogTitle>Remove Video Confirmation</DialogTitle>
+									<DialogTitle>
+										Remove Video Confirmation
+									</DialogTitle>
 									<DialogDescription>
-										<p>Are you sure you want to remove this video from the queue?</p>
+										<p>
+											Are you sure you want to remove this
+											video from the queue?
+										</p>
 										<b>This cannot be undone.</b>
 									</DialogDescription>
 									<DialogFooter>
 										<div className="flex justify-end mt-4">
-											<Button onClick={handleRemoveMusic} className="text-white bg-red-600 hover:bg-red-700">Delete</Button>
+											<Button
+												onClick={handleRemoveMusic}
+												className="text-white bg-red-600 hover:bg-red-700"
+											>
+												Delete
+											</Button>
 										</div>
 									</DialogFooter>
 								</DialogContent>
 							</Dialog>
-						}
+						)}
 					</div>
 				</div>
 			</div>

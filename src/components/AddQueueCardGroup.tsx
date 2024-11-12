@@ -18,7 +18,7 @@ const AddQueueCardGroup = ({
 	// }
 
 	return (
-		<ScrollArea className="h-[40vh] pr-3 md:h-[50vh] md:pr-5 h-[400px]">
+		<ScrollArea className="h-[40vh] pr-3 lg:h-[50vh] lg:pr-5 h-[400px]">
 			{searchVideos.length === 0 ? (
 				<div className="invisible">
 					<QueueCard />

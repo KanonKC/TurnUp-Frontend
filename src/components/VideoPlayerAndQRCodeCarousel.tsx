@@ -1,9 +1,9 @@
 import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
@@ -25,7 +25,7 @@ const VideoPlayerAndQRCodeCarousel = ({
 
 	return (
 		<Carousel>
-			<CarouselContent>
+			<CarouselContent className=" flex items-center">
 				<CarouselItem>
 					<div className="flex justify-center">
 						<VideoPlayer
@@ -51,7 +51,7 @@ const VideoPlayerAndQRCodeCarousel = ({
 					</div>
 				</CarouselItem>
 			</CarouselContent>
-			<span className="hidden sm:block">
+            <span className="hidden sm:block">
 				<CarouselNext />
 			</span>
 			<span className="hidden sm:block">

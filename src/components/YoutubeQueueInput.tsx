@@ -82,7 +82,7 @@ const YoutubeQueueInput = ({
 	};
 
 	return (
-		<div className="flex gap-[8px] md:gap-[16px]">
+		<div className="flex gap-[8px] lg:gap-[16px]">
 			<Input
 				placeholder="Search your music here ..."
 				value={value}
@@ -90,8 +90,8 @@ const YoutubeQueueInput = ({
 			/>
 			{searchType === "VIDEO" ? (
 				<Button disabled={value === ""} onClick={handleOnClickButton}>
-					<span className="hidden md:block">{buttonLabel}</span>
-					<span className="block md:hidden">
+					<span className="hidden lg:block">{buttonLabel}</span>
+					<span className="block lg:hidden">
 						<Plus size={18} />
 					</span>
 				</Button>
@@ -104,8 +104,8 @@ const YoutubeQueueInput = ({
 						disabled={value === ""}
 						onClick={handleOnClickButton}
 					>
-						<span className="hidden md:block">{buttonLabel}</span>
-						<span className="block md:hidden">
+						<span className="hidden lg:block">{buttonLabel}</span>
+						<span className="block lg:hidden">
 							<Search size={18} />
 						</span>
 					</Button>

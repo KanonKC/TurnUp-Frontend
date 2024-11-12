@@ -75,7 +75,7 @@ const LobbyRoom = () => {
 					<div className="my-3">
 						{isIndexDefined && nowPlaying?.currentQueue && (
 							<div>
-								<div className="font-bold mb-1 text-sm md:text-md">
+								<div className="font-bold mb-1 text-sm lg:text-md">
 									NOW{" "}
 									<span className="themed-color">
 										PLAYING
@@ -93,7 +93,7 @@ const LobbyRoom = () => {
 					</div>
 
 					{queues.length > 0 && (
-						<div className="font-bold mb-1 text-sm md:text-md">
+						<div className="font-bold mb-1 text-sm lg:text-md">
 							QUEUE
 						</div>
 					)}
