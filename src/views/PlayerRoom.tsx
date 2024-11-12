@@ -24,6 +24,7 @@ const PlayerRoom = () => {
 
 		QueueService.getAll(playlistId)
 			.then((response) => {
+                console.log("Loaded data", response.data.data);
 				setQueues(response.data.data);
 				return PlaylistService.get(playlistId);
 			})

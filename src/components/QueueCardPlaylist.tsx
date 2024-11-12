@@ -1,12 +1,15 @@
+import { cn } from "@/lib/utils";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import socket from "@/socket";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { CardVariant } from "@/types/CardVariant";
+import { ListPlus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ReactSortable, SortableEvent } from "react-sortablejs";
 import QueueCard from "./QueueCard";
 import { ScrollArea } from "./ui/scroll-area";
-import { cn } from "@/lib/utils";
-import { ListPlus } from "lucide-react";
+import { QueueService } from "@/services/apis/Queue.service";
 
 const QueueCardPlaylist = ({
 	queues,
@@ -17,36 +20,77 @@ const QueueCardPlaylist = ({
 	nowPlaying: PlaylistModel | undefined;
 	readOnly?: boolean;
 }) => {
-	const handleOnClick = async (index: number) => {
+	const [sortableQueues, setSortableQueues] = useState<QueueVideoMetadata[]>(
+		[]
+	);
+
+	const [isLoading, setIsLoading] = useState(false);
+    const [isSortableEnd, setIsSortableEnd] = useState(false);
+
+	const handleOnClick = async (queueId: string) => {
 		if (!nowPlaying || readOnly) return;
 
-		await PlaylistService.play.index(nowPlaying.id, index);
+		await PlaylistService.play.queue(nowPlaying.id, queueId);
 		socket.emit("reloadQueuesInPlaylist", nowPlaying.id);
 	};
 
+	const handleSortableEnd = async () => {
+        setIsSortableEnd(true);
+	};
+
+	useEffect(() => {
+		const payload = sortableQueues.map((queue, i) => ({
+			queueId: queue.id,
+			order: i,
+		}));
+		if (nowPlaying && isSortableEnd) {
+            setIsLoading(true);
+			QueueService.reOrder(nowPlaying.id, { queues: payload }).then(
+				() => {
+                    socket.emit("reloadQueuesInPlaylist", nowPlaying.id);
+                    setIsSortableEnd(false);
+                    setIsLoading(false);
+				}
+			);
+		}
+	}, [sortableQueues, nowPlaying, isSortableEnd]);
+
+	useEffect(() => {
+		setSortableQueues(queues);
+	}, [queues]);
+
 	return queues.length > 0 ? (
 		<ScrollArea className={cn("h-[40vh] md:h-[50vh] md:pr-5")}>
-			{queues.map((queueData, i) => {
-				let variant: CardVariant = "MID";
+			<ReactSortable
+				disabled={isLoading}
+				onEnd={handleSortableEnd}
+				animation={150}
+				list={sortableQueues}
+				setList={setSortableQueues}
+			>
+				{sortableQueues.map((queueData, i) => {
+					let variant: CardVariant = "MID";
 
-				if (queues.length === 1) variant = "ROUND";
-				else if (i === 0) variant = "TOP";
-				else if (i === queues.length - 1) variant = "BOTTOM";
+					if (queues.length === 1) variant = "ROUND";
+					else if (i === 0) variant = "TOP";
+					else if (i === queues.length - 1) variant = "BOTTOM";
 
-				const active = nowPlaying && i === nowPlaying.currentIndex;
+					const active =
+						nowPlaying &&
+						queueData.id === nowPlaying.currentQueueId;
 
-				return (
-					<QueueCard
-						readOnly={readOnly}
-						key={queueData.id}
-						queueVideoMetadata={queueData}
-						variant={variant}
-						active={active}
-						onClick={() => handleOnClick(i)}
-					/>
-				);
-			})}
-			<div className="pt-1"></div>
+					return (
+						<QueueCard
+							readOnly={readOnly}
+							key={queueData.id}
+							queueVideoMetadata={queueData}
+							variant={variant}
+							active={active}
+							onClick={() => handleOnClick(queueData.id)}
+						/>
+					);
+				})}
+			</ReactSortable>
 		</ScrollArea>
 	) : (
 		<div className="h-[40vh] md:h-[50vh] rounded-md flex justify-center items-center">
