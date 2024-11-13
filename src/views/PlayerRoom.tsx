@@ -5,61 +5,26 @@ import VideoPlayerAndQRCodeCarousel from "@/components/VideoPlayerAndQRCodeCarou
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
 import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
-import { PlaylistService } from "@/services/apis/Playlist.service";
-import { QueueService } from "@/services/apis/Queue.service";
-import socket from "@/socket";
-import { PlaylistModel } from "@/types/apis/Playlist.api";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
-import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useAppSelector } from "@/stores/hooks";
 
 const PlayerRoom = () => {
-	const [queues, setQueues] = useState<QueueVideoMetadata[]>([]);
-	const [nowPlaying, setnowPlaying] = useState<PlaylistModel>();
+	// const [queues, setQueues] = useState<QueueVideoMetadata[]>([]);
+	// const [playlist, setplaylist] = useState<PlaylistModel>();
 
-	const { playlistId } = useParams();
-
-	const load = useCallback(() => {
-		if (!playlistId) return;
-
-		QueueService.getAll(playlistId)
-			.then((response) => {
-				setQueues(response.data.data);
-				return PlaylistService.get(playlistId);
-			})
-			.then((response) => {
-				setnowPlaying(response.data);
-			});
-	}, [playlistId]);
-
-	useEffect(() => {
-		load();
-
-		socket.on("reloadQueuesInPlaylist", (socketPlaylistId: string) => {
-			if (socketPlaylistId === playlistId) {
-				load();
-			}
-		});
-
-		return () => {
-			socket.off("reloadQueuesInPlaylist");
-		};
-	}, [load, playlistId]);
+	const playlist = useAppSelector((state) => state.playlist);
+	
 
 	return (
 		<ValidLobbyContainer>
 			<CenterContainer className="mx-5 2xl:mx-32">
 				<div className="mb-4 mt-10 lg:my-10">
 					<h1 className="text-5xl lg:text-6xl text-center themed-color tracking-widest">
-						{playlistId}
+						{playlist?.id}
 					</h1>
 				</div>
 				<div className="hidden lg:flex items-center">
 					<div className="w-1/2 flex justify-center mr-5">
-						<VideoPlayerAndQRCodeCarousel
-							queues={queues}
-							nowPlaying={nowPlaying}
-						/>
+						<VideoPlayerAndQRCodeCarousel />
 					</div>
 					<div className="w-1/2 ml-10">
 						<div className="flex mb-5">
@@ -71,15 +36,12 @@ const PlayerRoom = () => {
 							</div>
 							<div>
 								<ClearPlaylistButton
-									playlistId={nowPlaying?.id ?? ""}
+									playlistId={playlist?.id ?? ""}
 								/>
 							</div>
 						</div>
 
-						<QueueCardPlaylist
-							queues={queues}
-							nowPlaying={nowPlaying}
-						/>
+						<QueueCardPlaylist />
 					</div>
 				</div>
 
@@ -87,8 +49,6 @@ const PlayerRoom = () => {
 				<div className="block lg:hidden">
 					<div className="flex justify-center">
 						<VideoPlayerAndQRCodeCarousel
-							queues={queues}
-							nowPlaying={nowPlaying}
 							width="288px"
 							height="162px"
 						/>
@@ -97,10 +57,7 @@ const PlayerRoom = () => {
 						<YoutubeQueueInput showClearPlaylistButton />
 					</div>
 					<div className="flex justify-center mx-2">
-						<QueueCardPlaylist
-							queues={queues}
-							nowPlaying={nowPlaying}
-						/>
+						<QueueCardPlaylist />
 					</div>
 				</div>
 			</CenterContainer>

@@ -19,7 +19,7 @@ const YoutubeQueueInput = ({
 	const { playlistId } = useParams();
 	const [value, setValue] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [buttonLabel, setButtonLabel] = useState("Add Music");
+	const [buttonLabel, setButtonLabel] = useState("Add Video");
 	const [searchType, setSearchType] = useState<
 		"VIDEO" | "SEARCH" | "PLAYLIST"
 	>("VIDEO");
@@ -71,7 +71,7 @@ const YoutubeQueueInput = ({
 
 		if (!result || result.type === "VIDEO" || e.target.value === "") {
 			setSearchType("VIDEO");
-			setButtonLabel("Add Music");
+			setButtonLabel("Add Video");
 		} else if (result.type === "SEARCH") {
 			setSearchType("SEARCH");
 			setButtonLabel("Search Video");
