@@ -13,8 +13,8 @@ const AddQueueCardGroup = ({
 }) => {
 	// const handleOnClick = async (index:number) => {
 
-	// 	// await PlaylistService.play.index(nowPlaying.id, index)
-	// 	// socket.emit("reloadQueuesInPlaylist",nowPlaying.id)
+	// 	// await PlaylistService.play.index(playlist.id, index)
+	// 	// socket.emit("reloadQueuesInPlaylist",playlist.id)
 	// }
 
 	return (

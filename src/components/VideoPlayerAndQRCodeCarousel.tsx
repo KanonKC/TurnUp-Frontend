@@ -1,26 +1,21 @@
 import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
 } from "@/components/ui/carousel";
-import { PlaylistModel } from "@/types/apis/Playlist.api";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "./VideoPlayer";
 
 const VideoPlayerAndQRCodeCarousel = ({
-	queues,
-	nowPlaying,
 	width = "640px",
 	height = "360px",
 }: {
-	queues: QueueVideoMetadata[];
-	nowPlaying: PlaylistModel | undefined;
 	width?: string;
 	height?: string;
 }) => {
+
 	const { playlistId } = useParams();
 
 	return (
@@ -29,8 +24,6 @@ const VideoPlayerAndQRCodeCarousel = ({
 				<CarouselItem>
 					<div className="flex justify-center">
 						<VideoPlayer
-							queues={queues}
-							nowPlaying={nowPlaying}
 							width={width}
 							height={height}
 						/>

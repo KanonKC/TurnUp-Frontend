@@ -80,24 +80,22 @@ const QueueCard = ({
 		});
 	};
 
-
 	return (
 		<div>
 			<Card
-				onClick={onClick}
 				className={cn(cardCustomCSS(), "", {
 					"cursor-pointer": !readOnly,
 				})}
 			>
 				<div className="flex">
-					<div className="w-1/5">
+					<div className="w-1/5" onClick={onClick}>
 						<img
 							className={imgCustomCSS()}
 							src={queueVideoMetadata.youtubeVideo.thumbnail}
 						/>
 					</div>
 					<div className="w-4/5 ml-[1px] lg:mx-2 flex justify-between items-center">
-						<div className="mr-5 ml-1 w-5/6">
+						<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
 							<div className="text-[9px] lg:text-[14px] 2xl:text-[16px]">
 								{queueVideoMetadata.youtubeVideo.title}
 							</div>
@@ -134,8 +132,11 @@ const QueueCard = ({
 					<DialogTitle>Remove Video Confirmation</DialogTitle>
 					<DialogDescription>
 						<p>
-							Are you sure you want to remove <span className="text-white">"{queueVideoMetadata.youtubeVideo.title}"</span> from the
-							queue?
+							Are you sure you want to remove{" "}
+							<span className="text-white">
+								"{queueVideoMetadata.youtubeVideo.title}"
+							</span>{" "}
+							from the queue?
 						</p>
 						<b>This cannot be undone.</b>
 					</DialogDescription>

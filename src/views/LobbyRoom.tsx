@@ -4,53 +4,20 @@ import { Button } from "@/components/ui/button";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
 import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
-import { PlaylistService } from "@/services/apis/Playlist.service";
-import { QueueService } from "@/services/apis/Queue.service";
-import socket from "@/socket";
-import { PlaylistModel } from "@/types/apis/Playlist.api";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
+import { useAppSelector } from "@/stores/hooks";
 import { MonitorPlay } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const LobbyRoom = () => {
-	const [queues, setQueues] = useState<QueueVideoMetadata[]>([]);
-	const [nowPlaying, setnowPlaying] = useState<PlaylistModel>();
+	const queues = useAppSelector((state) => state.playlist.queues);
+	const playlist = useAppSelector((state) => state.playlist);
 
 	const { playlistId } = useParams();
 
 	const navigate = useNavigate();
 
-	const isIndexDefined = useMemo(
-		() => nowPlaying?.currentQueueId,
-		[nowPlaying]
-	);
-
-	const load = useCallback(() => {
-		if (!playlistId) return;
-		QueueService.getAll(playlistId)
-			.then((response) => {
-				setQueues(response.data.data);
-				return PlaylistService.get(playlistId);
-			})
-			.then((response) => {
-				setnowPlaying(response.data);
-			});
-	}, [playlistId]);
-
-	useEffect(() => {
-		load();
-
-		socket.on("reloadQueuesInPlaylist", (socketPlaylistId: string) => {
-			if (socketPlaylistId === playlistId) {
-				load();
-			}
-		});
-
-		return () => {
-			socket.off("reloadQueuesInPlaylist");
-		};
-	}, [load, playlistId]);
+	const isIndexDefined = useMemo(() => playlist?.currentQueueId, [playlist]);
 
 	return (
 		<ValidLobbyContainer>
@@ -73,7 +40,7 @@ const LobbyRoom = () => {
 					</div>
 
 					<div className="my-3">
-						{isIndexDefined && nowPlaying?.currentQueue && (
+						{isIndexDefined && playlist?.currentQueue && (
 							<div>
 								<div className="font-bold mb-1 text-sm lg:text-md">
 									NOW{" "}
@@ -83,7 +50,9 @@ const LobbyRoom = () => {
 								</div>
 								<div className="">
 									<QueueCard
-										queueVideoMetadata={nowPlaying?.currentQueue}
+										queueVideoMetadata={
+											playlist?.currentQueue
+										}
 										readOnly
 										variant="ROUND"
 									/>
@@ -97,11 +66,7 @@ const LobbyRoom = () => {
 							QUEUE
 						</div>
 					)}
-					<QueueCardPlaylist
-						readOnly
-						queues={queues}
-						nowPlaying={nowPlaying}
-					/>
+					<QueueCardPlaylist readOnly />
 				</div>
 			</CenterContainer>
 		</ValidLobbyContainer>
