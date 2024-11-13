@@ -1,44 +1,43 @@
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
-import { PlaylistModel } from "@/types/apis/Playlist.api";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
+import { useAppSelector } from "@/stores/hooks";
 import ReactPlayer from "react-player";
 
 const VideoPlayer = ({
-	queues,
-	nowPlaying,
     width="640px",
     height="360px",
 }: {
-	queues: QueueVideoMetadata[];
-	nowPlaying: PlaylistModel | undefined;
     width?: string;
     height?: string;
 }) => {
+
+    const queues = useAppSelector((state) => state.playlist.queues);
+    const playlist = useAppSelector((state) => state.playlist);
+
 	const handleReady = () => {};
 
 	const handleEnd = () => {
 
-		if (!nowPlaying || !nowPlaying.currentQueueId) return;
+		if (!playlist || !playlist.currentQueueId) return;
 
-		QueueService.countUp(nowPlaying.currentQueueId).then(
+		QueueService.countUp(playlist.currentQueueId).then(
 			() => {
-				// return PlaylistService.play.algorithm(nowPlaying.id);
-                return PlaylistService.play.next(nowPlaying.id);
+				// return PlaylistService.play.algorithm(playlist.id);
+                return PlaylistService.play.next(playlist.id);
 			}
 		).then(() => {
-			socket.emit("reloadQueuesInPlaylist", nowPlaying.id);
+			socket.emit("reloadQueuesInPlaylist", playlist.id);
 		});
 	};
 
 	const handleURL = () => {
-		if (!nowPlaying || !nowPlaying.currentQueueId) return;
+		if (!playlist || !playlist.currentQueueId) return;
 
 		return `https://www.youtube.com/watch?v=${
 			queues.length > 0 &&
-			nowPlaying &&
-            nowPlaying.currentQueue?.youtubeVideo.youtubeId
+			playlist &&
+            playlist.currentQueue?.youtubeVideo.youtubeId
 		}`;
 	};
 
