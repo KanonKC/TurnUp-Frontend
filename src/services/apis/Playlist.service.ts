@@ -1,4 +1,4 @@
-import { PlaylistModel, PlaylistModelWithCurrentVideo, PlaylistServiceAPI } from "@/types/apis/Playlist.api";
+import { PlaylistModel, PlaylistServiceAPI } from "@/types/apis/Playlist.api";
 import axios from "axios";
 import { BACKEND_URL } from "./BackendURL";
 
@@ -8,7 +8,7 @@ export const PlaylistService: PlaylistServiceAPI = {
     },
     
     get(playlistId){
-        return axios.get<PlaylistModelWithCurrentVideo>(`${BACKEND_URL}/playlists/${playlistId}`)
+        return axios.get<PlaylistModel>(`${BACKEND_URL}/playlists/${playlistId}`)
     },
     
     play: {
