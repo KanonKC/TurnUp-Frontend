@@ -1,4 +1,5 @@
 import { PlaylistService } from "@/services/apis/Playlist.service";
+import { PlaylistModel } from "@/types/apis/Playlist.api";
 import { QueueVideoMetadata } from "@/types/apis/Queue.api";
 import {
 	createSlice,
@@ -13,6 +14,7 @@ export interface PlaylistState {
 	currentQueueId: string | null;
 	currentQueue: QueueVideoMetadata | null;
 	queues: QueueVideoMetadata[];
+    isLoading: boolean;
 }
 
 export const initialState: PlaylistState = {
@@ -21,6 +23,7 @@ export const initialState: PlaylistState = {
 	currentQueueId: null,
 	currentQueue: null,
 	queues: [],
+    isLoading: false,
 };
 
 export const playlistSlice = createSlice({
@@ -29,7 +32,7 @@ export const playlistSlice = createSlice({
 	reducers: {
 		setPlaylistState: (
 			state: PlaylistState,
-			action: PayloadAction<PlaylistState>
+			action: PayloadAction<PlaylistModel>
 		) => {
 			state.currentQueue = action.payload.currentQueue;
 			state.currentQueueId = action.payload.currentQueueId;
@@ -43,10 +46,16 @@ export const playlistSlice = createSlice({
 		) => {
 			state.queues = action.payload;
 		},
+        setIsLoading: (
+            state: PlaylistState,
+            action: PayloadAction<boolean>
+        ) => {
+            state.isLoading = action.payload;
+        }
 	},
 });
 
-export const { setPlaylistState, setQueues } = playlistSlice.actions;
+export const { setPlaylistState, setQueues, setIsLoading } = playlistSlice.actions;
 
 export async function getPlaylistById(
 	dispatch: ThunkDispatch<

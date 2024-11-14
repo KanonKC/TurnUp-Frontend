@@ -22,13 +22,15 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 	);
 
 	const [isLoading, setIsLoading] = useState(false);
+
 	const [isSortableEnd, setIsSortableEnd] = useState(false);
 
 	const handleOnClick = async (queueId: string) => {
 		if (!playlist || readOnly) return;
-
+        setIsLoading(true);
 		await PlaylistService.play.queue(playlist.id, queueId);
 		socket.emit("reloadQueuesInPlaylist", playlist.id);
+        setIsLoading(false);
 	};
 
 	const handleSortableEnd = async () => {
@@ -56,8 +58,10 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 
 	useEffect(() => {
         if (!playlist) return;
+        setIsLoading(true);
         PlaylistService.get(playlist.id).then((res) => {
             setSortableQueues(res.data.queues);
+            setIsLoading(false);
 		});
 	}, [playlist]);
 
