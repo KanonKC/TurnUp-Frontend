@@ -21,16 +21,16 @@ const ValidLobbyContainer = ({
 
         if (!playlistId) return;
 
-        pushVisitedPlaylistIds(playlistId)
-        document.title = `${playlistId} | Turn up`
-
         PlaylistService.get(playlistId).then(response => {
             if (response.status === 200) {
                 setIsExisted(true);
+                pushVisitedPlaylistIds(playlistId)
+                document.title = `${playlistId} | Turn up`
             }
         }).catch((error) => {
             if (error.response.status === 404) {
                 setIsExisted(false);
+                document.title = "Invalid room | Turn up"
             }
         })
     },[playlistId])
