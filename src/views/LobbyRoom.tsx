@@ -1,3 +1,4 @@
+import LoginToSpotifyButton from "@/components/LoginToSpotifyButton";
 import QueueCard from "@/components/QueueCard";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ const LobbyRoom = () => {
 	return (
 		<ValidLobbyContainer>
 			<CenterContainer className="w-[800px]">
+                <LoginToSpotifyButton />
 				<Button
 					onClick={() => navigate("./player")}
 					className="absolute right-5 top-5"

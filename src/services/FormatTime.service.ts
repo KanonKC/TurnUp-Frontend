@@ -61,9 +61,9 @@
 // }
 
 export function formatTime(second:number) {
-    let h = Math.floor(second / 3600)
+    const h = Math.floor(second / 3600)
     second = second % 3600
-    let m = Math.floor(second / 60)
+    const m = Math.floor(second / 60)
     second = second % 60
 
     let result = ""
