@@ -32,6 +32,7 @@ const QueueCard = ({
 	onClick?: () => void;
 	readOnly?: boolean;
 }) => {
+	const [isLoading, setIsLoading] = useState(false);
 	const [isOpenDialog, setIsOpenDialog] = useState(false);
 
 	const cardCustomCSS = () => {
@@ -71,13 +72,11 @@ const QueueCard = ({
 		setIsOpenDialog(true);
 	};
 
-	const handleRemoveMusic = () => {
-		QueueService.remove(queueVideoMetadata.id).then(() => {
-			socket.emit(
-				"reloadQueuesInPlaylist",
-				queueVideoMetadata.playlistId
-			);
-		});
+	const handleRemoveMusic = async () => {
+		setIsLoading(true);
+		await QueueService.remove(queueVideoMetadata.id);
+		socket.emit("reloadQueuesInPlaylist", queueVideoMetadata.playlistId);
+		setIsLoading(false);
 	};
 
 	return (
@@ -143,6 +142,7 @@ const QueueCard = ({
 					<DialogFooter>
 						<div className="flex justify-end mt-4">
 							<Button
+                                disabled={isLoading}
 								onClick={handleRemoveMusic}
 								className="text-white bg-red-600 hover:bg-red-700"
 							>
