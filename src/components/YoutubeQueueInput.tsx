@@ -10,6 +10,8 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Plus, Search } from "lucide-react";
 import ClearPlaylistButton from "./ClearPlaylistButton";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { setIsLoading } from "@/stores/slices/playlistSlice";
 
 const YoutubeQueueInput = ({
 	showClearPlaylistButton = false,
@@ -17,9 +19,11 @@ const YoutubeQueueInput = ({
 	showClearPlaylistButton?: boolean;
 }) => {
 	const { playlistId } = useParams();
+	const isLoading = useAppSelector((state) => state.playlist.isLoading);
+	const dispatch = useAppDispatch();
+
 	const [value, setValue] = useState("");
-	const [loading, setLoading] = useState(false);
-	const [buttonLabel, setButtonLabel] = useState("Add Music");
+	const [buttonLabel, setButtonLabel] = useState("Add Video");
 	const [searchType, setSearchType] = useState<
 		"VIDEO" | "SEARCH" | "PLAYLIST"
 	>("VIDEO");
@@ -30,16 +34,12 @@ const YoutubeQueueInput = ({
 		YoutubeBaseAttributes[]
 	>([]);
 
-	const handleAddMusic = (playlistId: string, videoId: string) => {
-		setLoading(true);
-		QueueService.addVideo(playlistId, videoId).then(() => {
-			setValue("");
-			setLoading(false);
-			socket.emit("reloadQueuesInPlaylist", playlistId);
-		});
-
-		// Remove this
-		loading;
+	const handleAddMusic = async (playlistId: string, videoId: string) => {
+		dispatch(setIsLoading(true));
+		await QueueService.addVideo(playlistId, videoId);
+		setValue("");
+		socket.emit("reloadQueuesInPlaylist", playlistId);
+		dispatch(setIsLoading(false));
 	};
 
 	const handleOnClickButton = async () => {
@@ -50,17 +50,17 @@ const YoutubeQueueInput = ({
 		else if (result.type === "VIDEO") {
 			handleAddMusic(playlistId, result.id);
 		} else if (result.type === "SEARCH" && isEdited) {
+            dispatch(setIsLoading(true));
 			setSearchVideoResult([]);
-			YoutubeSearchService.searchByQuery(result.id).then((response) => {
-				setSearchVideoResult(response.data.data);
-			});
+			const response = await YoutubeSearchService.searchByQuery(result.id)
+            setSearchVideoResult(response.data.data);
+            dispatch(setIsLoading(false));
 		} else if (result.type === "PLAYLIST" && isEdited) {
+            dispatch(setIsLoading(true));
 			setSearchVideoResult([]);
-			YoutubeSearchService.searchByPlaylistId(result.id).then(
-				(response) => {
-					setSearchVideoResult(response.data.data);
-				}
-			);
+			const response = await YoutubeSearchService.searchByPlaylistId(result.id)
+            setSearchVideoResult(response.data.data);
+            dispatch(setIsLoading(false));
 		}
 	};
 
@@ -71,7 +71,7 @@ const YoutubeQueueInput = ({
 
 		if (!result || result.type === "VIDEO" || e.target.value === "") {
 			setSearchType("VIDEO");
-			setButtonLabel("Add Music");
+			setButtonLabel("Add Video");
 		} else if (result.type === "SEARCH") {
 			setSearchType("SEARCH");
 			setButtonLabel("Search Video");
@@ -89,7 +89,10 @@ const YoutubeQueueInput = ({
 				onChange={(e) => handleChange(e)}
 			/>
 			{searchType === "VIDEO" ? (
-				<Button disabled={value === ""} onClick={handleOnClickButton}>
+				<Button
+					disabled={value === "" || isLoading}
+					onClick={handleOnClickButton}
+				>
 					<span className="hidden lg:block">{buttonLabel}</span>
 					<span className="block lg:hidden">
 						<Plus size={18} />
@@ -101,7 +104,7 @@ const YoutubeQueueInput = ({
 					// open={openDialog}
 				>
 					<Button
-						disabled={value === ""}
+						disabled={value === "" || isLoading}
 						onClick={handleOnClickButton}
 					>
 						<span className="hidden lg:block">{buttonLabel}</span>

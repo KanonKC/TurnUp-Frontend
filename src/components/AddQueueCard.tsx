@@ -3,13 +3,13 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
 import {
-	YoutubeBaseAttributes,
-	YoutubeBaseAttributesDummy,
+    YoutubeBaseAttributes,
+    YoutubeBaseAttributesDummy,
 } from "@/types/apis/YoutubeSearch.api";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { useState } from "react";
 
 const AddQueueCard = ({
 	variant = "MID",
@@ -19,7 +19,7 @@ const AddQueueCard = ({
 	videoMetadata?: YoutubeBaseAttributes;
 }) => {
 	// bg-white text-black
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 	const cardCustomCSS = () => {
 		const css = "";
@@ -49,15 +49,13 @@ const AddQueueCard = ({
 
 	const { playlistId } = useParams();
 
-	const handleAddMusic = () => {
+	const handleAddMusic = async () => {
 		if (!playlistId) return;
 
         setIsLoading(true);
-
-		QueueService.addVideo(playlistId, videoMetadata.url).then(() => {
-			socket.emit("reloadQueuesInPlaylist", playlistId);
-            setIsLoading(false);
-		});
+		await QueueService.addVideo(playlistId, videoMetadata.url)
+        socket.emit("reloadQueuesInPlaylist", playlistId);
+        setIsLoading(false);
 	};
 
 	return (
@@ -80,7 +78,7 @@ const AddQueueCard = ({
 							</div>
 						</div>
 						<div className="flex items-center gap-3 mr-3">
-							<Button onClick={handleAddMusic}>
+							<Button disabled={isLoading} onClick={handleAddMusic}>
 								Add to Queue
 							</Button>
 						</div>
