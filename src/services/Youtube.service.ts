@@ -45,7 +45,7 @@ export const YoutubeService: YoutubeServiceInterface = {
 		if (input.includes("youtu.be")) {
             return {
                 type: "VIDEO",
-                id: input.split("/")[3]
+                id: input.split("/")[3].split("?")[0]
             }
 		} else if (input.includes("list=")) {
 			const videoReg = /list=(.*?)&|list=(.*?)/;
