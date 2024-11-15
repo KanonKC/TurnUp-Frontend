@@ -29,8 +29,7 @@ export function createSpotifyOAuthUrl() {
 export async function getSpotifyUserLoginAccessToken(
 	code: string
 ): Promise<AxiosResponse<SpotifyAuthorization>> {
-	console.log("VITE_SPOTIFY_CLIENT_ID", VITE_SPOTIFY_CLIENT_ID);
-	console.log("Buffer", Buffer);
+
 	const authOptions = {
 		url: "https://accounts.spotify.com/api/token",
 		form: {

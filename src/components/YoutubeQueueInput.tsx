@@ -36,7 +36,7 @@ const YoutubeQueueInput = ({
 
 	const handleAddMusic = async (playlistId: string, videoId: string) => {
 		dispatch(setIsLoading(true));
-		await QueueService.addVideo(playlistId, videoId);
+		await QueueService.addYoutubeVideo(playlistId, videoId);
 		setValue("");
 		socket.emit("reloadQueuesInPlaylist", playlistId);
 		dispatch(setIsLoading(false));

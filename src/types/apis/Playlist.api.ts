@@ -10,8 +10,13 @@ export interface PlaylistModel {
     createdAt: Date;
 }
 
+export interface CreatePlaylistPayload {
+    id: string;
+    spotifyAccessToken?: string;
+}
+
 export type PlaylistServiceAPI = {
-    create: (playlistId: string) => Promise<AxiosResponse<PlaylistModel>>
+    create: (payload: CreatePlaylistPayload) => Promise<AxiosResponse<PlaylistModel>>
     get: (playlistId: string) => Promise<AxiosResponse<PlaylistModel>>
     play: {
         index: (playlistId: string,index: number) => Promise<AxiosResponse<PlaylistModel>>

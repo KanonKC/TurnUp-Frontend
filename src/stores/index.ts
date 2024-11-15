@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './slices/counterSlice'
 import { playlistSlice } from './slices/playlistSlice'
+import { accountSlice } from './slices/accountSlice'
 
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
-        playlist: playlistSlice.reducer
+        playlist: playlistSlice.reducer,
+        account: accountSlice.reducer
     }
 })
 

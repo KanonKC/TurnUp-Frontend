@@ -53,7 +53,7 @@ const AddQueueCard = ({
 		if (!playlistId) return;
 
         setIsLoading(true);
-		await QueueService.addVideo(playlistId, videoMetadata.url)
+		await QueueService.addYoutubeVideo(playlistId, videoMetadata.url)
         socket.emit("reloadQueuesInPlaylist", playlistId);
         setIsLoading(false);
 	};

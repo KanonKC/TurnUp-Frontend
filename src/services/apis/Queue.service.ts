@@ -13,9 +13,9 @@ export const QueueService: QueueServiceAPI = {
 		);
 	},
 
-	addVideo(playlistId, url) {
+	addYoutubeVideo(playlistId, url) {
 		return axios.post<QueueModel>(
-			`${BACKEND_URL}/playlists/${playlistId}/queues`,
+			`${BACKEND_URL}/playlists/${playlistId}/queues/youtube-video`,
 			{ videoId: url }
 		);
 	},

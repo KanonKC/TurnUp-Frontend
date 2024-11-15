@@ -1,10 +1,11 @@
 import { PlaylistModel, PlaylistServiceAPI } from "@/types/apis/Playlist.api";
 import axios from "axios";
 import { BACKEND_URL } from "./BackendURL";
+import { CreatePlaylistPayload } from "@/types/apis/Playlist.api";
 
 export const PlaylistService: PlaylistServiceAPI = {
-    create(playlistId: string){
-        return axios.post<PlaylistModel>(`${BACKEND_URL}/playlists`,{id: playlistId})
+    create(payload: CreatePlaylistPayload){
+        return axios.post<PlaylistModel>(`${BACKEND_URL}/playlists`, payload)
     },
     
     get(playlistId){

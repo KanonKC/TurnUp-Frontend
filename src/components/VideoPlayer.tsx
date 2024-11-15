@@ -33,19 +33,19 @@ const VideoPlayer = ({
 	};
 
 	const handleURL = () => {
-		if (!playlist || !playlist.currentQueueId) return;
+		if (!playlist || !playlist.currentQueue || !playlist.currentQueue?.youtubeVideo) return;
 
 		return `https://www.youtube.com/watch?v=${
 			queues.length > 0 &&
 			playlist &&
-            playlist.currentQueue?.youtubeVideo.youtubeId
+            playlist.currentQueue.youtubeVideo.youtubeId
 		}`;
 	};
 
 	return (
 		<div className="flex">
 			<div className="themed-border">
-				{/* <ReactPlayer
+				<ReactPlayer
                     width={width}
                     height={height}
 					light={true}
@@ -55,11 +55,11 @@ const VideoPlayer = ({
 					url={handleURL()}
 					onReady={() => handleReady()}
 					onEnded={() => handleEnd()}
-				/> */}
-                <SpotifyPlayer
+				/>
+                {/* <SpotifyPlayer
                     token="BQC8pwqb73SEQn3Wct7kT8Rz1qx1Q2Q6leMY5Lgsxi4VgnnkyLerDr4Od2D7kAHclz04Q8lwWzNODqSShb7rDscVyafnzdTzAwfh_2-PoWXF9H_hH8G3dntpRzvHhh9VQ_boKUTX0TeTAJW7POMNGyNrp0Z0tPC-jxA5psaSN74E-UVO7EWW9AiqMexrm141lCEnQUJ4UFadZA_ZGXvnOFmaL8xrot1b8H5zp_0"
                     uris={["spotify:track:7xGfFoTpQ2E7fRF5lN10tr"]}
-                />
+                /> */}
 			</div>
 
 		</div>

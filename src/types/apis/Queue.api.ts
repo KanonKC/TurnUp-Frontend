@@ -74,7 +74,7 @@ export interface ReOrderQueuePayload {
 
 export type QueueServiceAPI = {
     getAll: (playlistId: string) => Promise<AxiosResponse<ListAPIResponse<QueueModel[]>>>
-    addVideo: (playlistId: string, videoId: string) => Promise<AxiosResponse<QueueModel>>
+    addYoutubeVideo: (playlistId: string, videoId: string) => Promise<AxiosResponse<QueueModel>>
     clear: (playlistId: string) => Promise<AxiosResponse<null>>
     countUp: (queueId: string) => Promise<AxiosResponse<QueueModel>> // ****
     get: (queueId: string) => Promise<AxiosResponse<QueueModel>>
