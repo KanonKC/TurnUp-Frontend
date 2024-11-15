@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
-import { QueueVideoMetadata } from "./Queue.api";
+import { QueueModel } from "./Queue.api";
 
 export interface PlaylistModel {
     id: string;
     type: string;
     currentQueueId: string | null;
-    currentQueue: QueueVideoMetadata | null;
-    queues: QueueVideoMetadata[];
+    currentQueue: QueueModel | null;
+    queues: QueueModel[];
     createdAt: Date;
 }
 

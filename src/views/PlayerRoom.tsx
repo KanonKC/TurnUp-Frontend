@@ -8,7 +8,7 @@ import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
 import { useAppSelector } from "@/stores/hooks";
 
 const PlayerRoom = () => {
-	// const [queues, setQueues] = useState<QueueVideoMetadata[]>([]);
+	// const [queues, setQueues] = useState<QueueModel[]>([]);
 	// const [playlist, setplaylist] = useState<PlaylistModel>();
 
 	const playlist = useAppSelector((state) => state.playlist);

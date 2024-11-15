@@ -4,8 +4,8 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
 import {
-	QueueVideoMetadata,
-	QueueVideoMetadataDummy,
+	QueueModel,
+	QueueModelDummy,
 } from "@/types/apis/Queue.api";
 import { Trash } from "lucide-react";
 import { Button } from "./ui/button";
@@ -21,13 +21,13 @@ import { useState } from "react";
 
 const QueueCard = ({
 	variant = "MID",
-	queueVideoMetadata = QueueVideoMetadataDummy,
+	QueueModel = QueueModelDummy,
 	active = false,
 	onClick = () => {},
 	readOnly = false,
 }: {
 	variant?: CardVariant;
-	queueVideoMetadata?: QueueVideoMetadata;
+	QueueModel?: QueueModel;
 	active?: boolean;
 	onClick?: () => void;
 	readOnly?: boolean;
@@ -74,8 +74,8 @@ const QueueCard = ({
 
 	const handleRemoveMusic = async () => {
 		setIsLoading(true);
-		await QueueService.remove(queueVideoMetadata.id);
-		socket.emit("reloadQueuesInPlaylist", queueVideoMetadata.playlistId);
+		await QueueService.remove(QueueModel.id);
+		socket.emit("reloadQueuesInPlaylist", QueueModel.playlistId);
 		setIsLoading(false);
 	};
 
@@ -90,22 +90,22 @@ const QueueCard = ({
 					<div className="w-1/5" onClick={onClick}>
 						<img
 							className={imgCustomCSS()}
-							src={queueVideoMetadata.youtubeVideo.thumbnail}
+							src={QueueModel.youtubeVideo.thumbnail}
 						/>
 					</div>
 					<div className="w-4/5 ml-[1px] lg:mx-2 flex justify-between items-center">
 						<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
 							<div className="text-[9px] lg:text-[14px] 2xl:text-[16px]">
-								{queueVideoMetadata.youtubeVideo.title}
+								{QueueModel.youtubeVideo.title}
 							</div>
 							<div className="text-[8px] lg:text-[12px] 2xl:text-[14px] text-neutral-400">
-								{queueVideoMetadata.youtubeVideo.channelTitle}
+								{QueueModel.youtubeVideo.channelTitle}
 							</div>
 						</div>
 						<div className="flex items-center gap-3 mr-3">
 							<div className="hidden lg:block text-sm lg:text-md">
 								{formatTime(
-									queueVideoMetadata.youtubeVideo.duration
+									QueueModel.youtubeVideo.duration
 								)}
 							</div>
 							{!readOnly && (
@@ -133,7 +133,7 @@ const QueueCard = ({
 						<p>
 							Are you sure you want to remove{" "}
 							<span className="text-white">
-								"{queueVideoMetadata.youtubeVideo.title}"
+								"{QueueModel.youtubeVideo.title}"
 							</span>{" "}
 							from the queue?
 						</p>

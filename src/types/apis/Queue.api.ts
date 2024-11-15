@@ -1,26 +1,40 @@
 import { AxiosResponse } from "axios"
 import { ListAPIResponse } from "../ListAPI"
 
-export type QueueVideoMetadata = {
+
+export interface YoutubeVideo {
     id: string
-    playedCount: number
-    youtubeVideoId: string
-    playlistId: string
-    youtubeVideo: {
-        id: string
-        youtubeId: string
-        title: string
-        channelTitle: string
-        description: string
-        thumbnail: string
-        duration: number
-        isCleared: boolean
-        totalPlayed: number
-    }
+    youtubeId: string
+    title: string
+    channelTitle: string
+    description: string
+    thumbnail: string
+    duration: number
 }
 
-export const QueueVideoMetadataDummy:QueueVideoMetadata = {
+export interface SpotifyTrack {
+    id: string;
+    spotifyUri: string;
+    title: string;
+    artist: string;
+    thumbnail: string;
+    duration: number;
+    createdAt: string;
+}
+export interface QueueModel {
+    id: string
+    type: "youtube-video" | "spotify-track"
+    playedCount: number
+    playlistId: string
+    youtubeVideoId: string | null;
+    youtubeVideo: YoutubeVideo | null;
+    spotifyTrackId: string | null;
+    spotifyTrack: SpotifyTrack | null;
+}
+
+export const QueueModelDummy:QueueModel = {
     id: "1",
+    type: "youtube-video",
     playedCount: 1,
     youtubeVideoId: "1",
     playlistId: "1",
@@ -32,13 +46,21 @@ export const QueueVideoMetadataDummy:QueueVideoMetadata = {
         description: "asddwasdw",
         thumbnail: "https://i.ytimg.com/vi/q6H3rxUA40Q/mqdefault.jpg",
         duration: 60,
-        isCleared: false,
-        totalPlayed: 5
+    },
+    spotifyTrackId: "1",
+    spotifyTrack: {
+        id: "1",
+        spotifyUri: "asddwasdw",
+        title: "asddwasdw",
+        artist: "asddwasdw",
+        thumbnail: "https://i.ytimg.com/vi/q6H3rxUA40Q/mqdefault.jpg",
+        duration: 60,
+        createdAt: "asddwasdw",
     }
 }
 
 export type QueueServiceAPIGetAll = {
-    queues: QueueVideoMetadata[]
+    queues: QueueModel[]
 }
 
 export interface ReOrderQueuePayload {
@@ -51,11 +73,11 @@ export interface ReOrderQueuePayload {
 // export type 
 
 export type QueueServiceAPI = {
-    getAll: (playlistId: string) => Promise<AxiosResponse<ListAPIResponse<QueueVideoMetadata[]>>>
-    addVideo: (playlistId: string, videoId: string) => Promise<AxiosResponse<QueueVideoMetadata>>
+    getAll: (playlistId: string) => Promise<AxiosResponse<ListAPIResponse<QueueModel[]>>>
+    addVideo: (playlistId: string, videoId: string) => Promise<AxiosResponse<QueueModel>>
     clear: (playlistId: string) => Promise<AxiosResponse<null>>
-    countUp: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>> // ****
-    get: (queueId: string) => Promise<AxiosResponse<QueueVideoMetadata>>
+    countUp: (queueId: string) => Promise<AxiosResponse<QueueModel>> // ****
+    get: (queueId: string) => Promise<AxiosResponse<QueueModel>>
     remove: (queueId: string) => Promise<AxiosResponse<null>>
-    reOrder: (playlistId: string, payload: ReOrderQueuePayload) => Promise<AxiosResponse<QueueVideoMetadata[]>>
+    reOrder: (playlistId: string, payload: ReOrderQueuePayload) => Promise<AxiosResponse<QueueModel[]>>
 }

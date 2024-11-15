@@ -4,7 +4,7 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { useAppSelector } from "@/stores/hooks";
 import {
-    QueueVideoMetadata
+    QueueModel
 } from "@/types/apis/Queue.api";
 import { CardVariant } from "@/types/CardVariant";
 import { ListPlus } from "lucide-react";
@@ -17,7 +17,7 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 	const queues = useAppSelector((state) => state.playlist.queues);
 	const playlist = useAppSelector((state) => state.playlist);
 
-	const [sortableQueues, setSortableQueues] = useState<QueueVideoMetadata[]>(
+	const [sortableQueues, setSortableQueues] = useState<QueueModel[]>(
 		[]
 	);
 
@@ -88,7 +88,7 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 						<QueueCard
 							readOnly={readOnly}
 							key={queueData.id}
-							queueVideoMetadata={queueData}
+							QueueModel={queueData}
 							variant={variant}
 							active={active}
 							onClick={() => handleOnClick(queueData.id)}

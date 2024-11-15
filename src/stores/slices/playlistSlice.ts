@@ -1,6 +1,6 @@
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { PlaylistModel } from "@/types/apis/Playlist.api";
-import { QueueVideoMetadata } from "@/types/apis/Queue.api";
+import { QueueModel } from "@/types/apis/Queue.api";
 import {
 	createSlice,
 	PayloadAction,
@@ -12,8 +12,8 @@ export interface PlaylistState {
 	id: string;
 	type: string;
 	currentQueueId: string | null;
-	currentQueue: QueueVideoMetadata | null;
-	queues: QueueVideoMetadata[];
+	currentQueue: QueueModel | null;
+	queues: QueueModel[];
     isLoading: boolean;
 }
 
@@ -42,7 +42,7 @@ export const playlistSlice = createSlice({
 		},
 		setQueues: (
 			state: PlaylistState,
-			action: PayloadAction<QueueVideoMetadata[]>
+			action: PayloadAction<QueueModel[]>
 		) => {
 			state.queues = action.payload;
 		},

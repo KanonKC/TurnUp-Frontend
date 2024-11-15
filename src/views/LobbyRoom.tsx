@@ -52,7 +52,7 @@ const LobbyRoom = () => {
 								</div>
 								<div className="">
 									<QueueCard
-										queueVideoMetadata={
+										QueueModel={
 											playlist?.currentQueue
 										}
 										readOnly

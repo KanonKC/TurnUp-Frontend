@@ -1,6 +1,6 @@
 import {
 	QueueServiceAPI,
-	QueueVideoMetadata,
+	QueueModel,
 } from "@/types/apis/Queue.api";
 import { ListAPIResponse } from "@/types/ListAPI";
 import axios from "axios";
@@ -8,13 +8,13 @@ import { BACKEND_URL } from "./BackendURL";
 
 export const QueueService: QueueServiceAPI = {
 	getAll(playlistId) {
-		return axios.get<ListAPIResponse<QueueVideoMetadata[]>>(
+		return axios.get<ListAPIResponse<QueueModel[]>>(
 			`${BACKEND_URL}/playlists/${playlistId}/queues`
 		);
 	},
 
 	addVideo(playlistId, url) {
-		return axios.post<QueueVideoMetadata>(
+		return axios.post<QueueModel>(
 			`${BACKEND_URL}/playlists/${playlistId}/queues`,
 			{ videoId: url }
 		);
@@ -27,13 +27,13 @@ export const QueueService: QueueServiceAPI = {
 	},
 
 	countUp(queueId) {
-		return axios.put<QueueVideoMetadata>(
+		return axios.put<QueueModel>(
 			`${BACKEND_URL}/queues/${queueId}/increment`
 		);
 	},
 
 	get(queueId) {
-		return axios.delete<QueueVideoMetadata>(
+		return axios.delete<QueueModel>(
 			`${BACKEND_URL}/queues/${queueId}`
 		);
 	},
@@ -43,7 +43,7 @@ export const QueueService: QueueServiceAPI = {
 	},
 
 	reOrder(playlistId, payload) {
-		return axios.patch<QueueVideoMetadata[]>(
+		return axios.patch<QueueModel[]>(
 			`${BACKEND_URL}/playlists/${playlistId}/queues/order`,
 			payload,
 		);
