@@ -1,6 +1,7 @@
 import ClearPlaylistButton from "@/components/ClearPlaylistButton";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Separator } from "@/components/ui/separator";
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer";
 import VideoPlayerAndQRCodeCarousel from "@/components/VideoPlayerAndQRCodeCarousel";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
@@ -24,7 +25,8 @@ const PlayerRoom = () => {
 				</div>
 				<div className="hidden lg:flex items-center">
 					<div className="w-1/2 flex justify-center mr-5">
-						<VideoPlayerAndQRCodeCarousel />
+						{/* <VideoPlayerAndQRCodeCarousel /> */}
+                        <VideoPlayer/>
 					</div>
 					<div className="w-1/2 ml-10">
 						<div className="flex mb-5">

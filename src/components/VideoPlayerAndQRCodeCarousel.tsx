@@ -6,7 +6,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useParams } from "react-router-dom";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
 const VideoPlayerAndQRCodeCarousel = ({
 	width = "640px",

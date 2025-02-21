@@ -10,7 +10,7 @@ import { CardVariant } from "@/types/CardVariant";
 import { ListPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
-import QueueCard from "./QueueCard";
+import QueueCard from "./QueueCard/QueueCard";
 import { ScrollArea } from "./ui/scroll-area";
 
 const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
@@ -88,7 +88,7 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 						<QueueCard
 							readOnly={readOnly}
 							key={queueData.id}
-							QueueModel={queueData}
+							queue={queueData}
 							variant={variant}
 							active={active}
 							onClick={() => handleOnClick(queueData.id)}

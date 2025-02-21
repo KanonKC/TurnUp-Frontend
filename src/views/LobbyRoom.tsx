@@ -1,5 +1,5 @@
 import LoginToSpotifyButton from "@/components/LoginToSpotifyButton";
-import QueueCard from "@/components/QueueCard";
+import QueueCard from "@/components/QueueCard/QueueCard";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
 import { Button } from "@/components/ui/button";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";

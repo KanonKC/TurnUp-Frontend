@@ -6,16 +6,16 @@ import { Buffer } from "buffer";
 const { VITE_SPOTIFY_CLIENT_ID, VITE_SPOTIFY_CLIENT_SECRET } = import.meta.env;
 
 const scopes = [
-    'streaming',
-    'user-read-email',
-    'user-read-private',
-    'user-read-playback-state',
-    'user-modify-playback-state',
+	"streaming",
+	"user-read-email",
+	"user-read-private",
+	"user-read-playback-state",
+	"user-modify-playback-state",
 ];
 
-// const spotifyAPI = axios.create({
-// 	baseURL: "https://api.spotify.com/v1",
-// });
+const spotifyAPI = axios.create({
+	baseURL: "https://api.spotify.com/v1",
+});
 
 export function createSpotifyOAuthUrl() {
 	const randomString = generateRandomString(16);
@@ -29,7 +29,6 @@ export function createSpotifyOAuthUrl() {
 export async function getSpotifyUserLoginAccessToken(
 	code: string
 ): Promise<AxiosResponse<SpotifyAuthorization>> {
-
 	const authOptions = {
 		url: "https://accounts.spotify.com/api/token",
 		form: {
@@ -51,4 +50,20 @@ export async function getSpotifyUserLoginAccessToken(
 	return axios.post(authOptions.url, authOptions.form, {
 		headers: authOptions.headers,
 	});
+}
+
+export async function seekSpotifyPlayerToPosition(
+	accessToken: string,
+	positionMs: number
+) {
+	return spotifyAPI.put(
+		"/me/player/seek",
+		undefined,
+		{
+            params: { position_ms: positionMs },
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		}
+	);
 }

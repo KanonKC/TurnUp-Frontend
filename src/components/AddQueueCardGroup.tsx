@@ -1,7 +1,7 @@
 import { CardVariant } from "@/types/CardVariant";
 import { YoutubeBaseAttributes } from "@/types/apis/YoutubeSearch.api";
 import AddQueueCard from "./AddQueueCard";
-import QueueCard from "./QueueCard";
+import QueueCard from "./QueueCard/QueueCard";
 import { ScrollArea } from "./ui/scroll-area";
 
 const AddQueueCardGroup = ({
