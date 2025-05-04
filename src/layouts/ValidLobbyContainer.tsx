@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CenterContainer from "./CenterContainer";
 import { useParams } from "react-router-dom";
 import { PlaylistService } from "@/services/apis/Playlist.service";
 import { MonitorX } from "lucide-react";
 import { pushVisitedPlaylistIds } from "@/util/LocalStorage";
+import { useAppDispatch } from "@/stores/hooks";
+import { getPlaylistById } from "@/stores/slices/playlistSlice";
+import socket from "@/socket";
 
 const ValidLobbyContainer = ({
     children
@@ -18,19 +21,41 @@ const ValidLobbyContainer = ({
 
         if (!playlistId) return;
 
-        pushVisitedPlaylistIds(playlistId)
-        document.title = `${playlistId} | Turn up`
-
         PlaylistService.get(playlistId).then(response => {
             if (response.status === 200) {
                 setIsExisted(true);
+                pushVisitedPlaylistIds(playlistId)
+                document.title = `${playlistId} | Turn up`
             }
         }).catch((error) => {
             if (error.response.status === 404) {
                 setIsExisted(false);
+                document.title = "Invalid room | Turn up"
             }
         })
     },[playlistId])
+
+    const dispatch = useAppDispatch();
+
+
+	const load = useCallback(async () => {
+		if (!playlistId) return;
+		await getPlaylistById(dispatch, playlistId);
+	}, [dispatch, playlistId]);
+
+	useEffect(() => {
+		load();
+
+		socket.on("reloadQueuesInPlaylist", (socketPlaylistId: string) => {
+			if (socketPlaylistId === playlistId) {
+				load();
+			}
+		});
+
+		return () => {
+			socket.off("reloadQueuesInPlaylist");
+		};
+	}, [load, playlistId]);
 
 	return (
         isExisted === undefined ? <div></div> :
