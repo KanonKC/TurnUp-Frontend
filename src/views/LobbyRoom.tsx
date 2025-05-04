@@ -1,11 +1,12 @@
 import QueueCard from "@/components/QueueCard";
 import QueueCardPlaylist from "@/components/QueueCardPlaylist";
+import ShareDialog from "@/components/ShareDialog";
 import { Button } from "@/components/ui/button";
 import YoutubeQueueInput from "@/components/YoutubeQueueInput";
 import CenterContainer from "@/layouts/CenterContainer";
 import ValidLobbyContainer from "@/layouts/ValidLobbyContainer";
 import { useAppSelector } from "@/stores/hooks";
-import { MonitorPlay } from "lucide-react";
+import { MonitorPlay, Share2 } from "lucide-react";
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -22,13 +23,28 @@ const LobbyRoom = () => {
 	return (
 		<ValidLobbyContainer>
 			<CenterContainer className="w-[800px]">
-				<Button
-					onClick={() => navigate("./player")}
-					className="absolute right-5 top-5"
-				>
-					Go to Player Room
-					<MonitorPlay size={20} className="ml-2" />
-				</Button>
+				<div className="absolute right-5 top-5">
+					<div className="flex gap-2">
+						<ShareDialog>
+							<Button>
+								<span className="mr-2 hidden md:block">
+									Share this Lobby
+								</span>
+								<Share2 size={20} />
+							</Button>
+						</ShareDialog>
+						<Button
+							variant="outline"
+							onClick={() => navigate("./player")}
+						>
+							<span className="mr-2 hidden md:block">
+								Go to Player Room
+							</span>
+
+							<MonitorPlay size={20} />
+						</Button>
+					</div>
+				</div>
 				<div className="my-5">
 					<h1 className="text-6xl text-center themed-color tracking-widest">
 						{playlistId}
