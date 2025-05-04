@@ -1,4 +1,3 @@
-import CreatorContact from "@/components/CreatorContact";
 import RecentlyVisitedPlaylistList from "@/components/RecentlyVisitedPlaylistList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -30,9 +29,7 @@ const Home = () => {
 					Join an existing Lobby
 				</Button>
 				<RecentlyVisitedPlaylistList />
-				<div className="mt-5">
-					<CreatorContact/>
-				</div>
+				
 			</div>
 		</CenterContainer>
 	);
