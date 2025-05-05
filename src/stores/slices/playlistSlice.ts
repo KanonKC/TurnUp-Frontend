@@ -68,6 +68,8 @@ export async function getPlaylistById(
 	playlistId: string
 ) {
     if (!playlistId) return;
+    dispatch(setIsLoading(true))
 	const response = await PlaylistService.get(playlistId);
+    dispatch(setIsLoading(false))
 	dispatch(setPlaylistState(response.data));
 }

@@ -66,7 +66,7 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 	}, [playlist]);
 
 	return queues.length > 0 ? (
-		<ScrollArea className={cn("h-[40vh] lg:h-[50vh] lg:pr-5")}>
+		<ScrollArea className={cn("h-[30vh] lg:h-[50vh] lg:pr-5")}>
 			<ReactSortable
 				disabled={isLoading || readOnly}
 				onEnd={handleSortableEnd}
@@ -86,6 +86,7 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 
 					return (
 						<QueueCard
+                            disabled={isLoading}
 							readOnly={readOnly}
 							key={queueData.id}
 							queueVideoMetadata={queueData}
@@ -98,7 +99,7 @@ const QueueCardPlaylist = ({ readOnly = false }: { readOnly?: boolean }) => {
 			</ReactSortable>
 		</ScrollArea>
 	) : (
-		<div className="h-[40vh] lg:h-[50vh] rounded-md flex justify-center items-center">
+		<div className="h-[30vh] lg:h-[50vh] rounded-md flex justify-center items-center">
 			<div className="">
 				<div className="flex justify-center text-neutral-500">
 					<ListPlus size={32} />
