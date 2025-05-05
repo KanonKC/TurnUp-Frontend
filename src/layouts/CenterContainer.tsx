@@ -21,7 +21,7 @@ const CenterContainer = ({
 			>
 				{children}
 			</div>
-			<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+			<div className="absolute bottom-5 md:bottom-8 left-1/2 transform -translate-x-1/2">
 				<CreatorContact />
 			</div>
 		</div>
