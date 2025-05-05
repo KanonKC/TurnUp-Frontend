@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
+import { Loader2 } from "lucide-react";
 
 const AddQueueCard = ({
 	variant = "MID",
@@ -79,6 +80,7 @@ const AddQueueCard = ({
 						</div>
 						<div className="flex items-center gap-3 mr-3">
 							<Button disabled={isLoading} onClick={handleAddMusic}>
+                                {isLoading && <Loader2 className="animate-spin mr-2" />}
 								Add to Queue
 							</Button>
 						</div>

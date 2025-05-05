@@ -4,28 +4,30 @@ import { QueueService } from "@/services/apis/Queue.service";
 import socket from "@/socket";
 import { CardVariant } from "@/types/CardVariant";
 import {
-	QueueVideoMetadata,
-	QueueVideoMetadataDummy,
+    QueueVideoMetadata,
+    QueueVideoMetadataDummy,
 } from "@/types/apis/Queue.api";
 import { Trash } from "lucide-react";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogTitle,
 } from "./ui/dialog";
-import { useState } from "react";
 
 const QueueCard = ({
+	disabled = false,
 	variant = "MID",
 	queueVideoMetadata = QueueVideoMetadataDummy,
 	active = false,
 	onClick = () => {},
 	readOnly = false,
 }: {
+	disabled?: boolean;
 	variant?: CardVariant;
 	queueVideoMetadata?: QueueVideoMetadata;
 	active?: boolean;
@@ -83,22 +85,34 @@ const QueueCard = ({
 		<div>
 			<Card
 				className={cn(cardCustomCSS(), "", {
-					"cursor-pointer": !readOnly,
+					"cursor-pointer": !readOnly && !disabled,
+					"cursor-not-allowed": disabled,
 				})}
 			>
 				<div className="flex">
-					<div className="w-1/5" onClick={onClick}>
+					<div className="w-1/5 relative" onClick={onClick}>
 						<img
-							className={imgCustomCSS()}
+							className={cn(imgCustomCSS(), {
+								"opacity-50": disabled,
+							})}
 							src={queueVideoMetadata.youtubeVideo.thumbnail}
 						/>
+						{/* {disabled && (
+							<div className="absolute z-30 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+								<Loader2 className="animate-spin" />
+							</div>
+						)} */}
 					</div>
 					<div className="w-4/5 ml-[1px] lg:mx-2 flex justify-between items-center">
 						<div className="mr-5 ml-1 w-5/6" onClick={onClick}>
 							<div className="text-[9px] lg:text-[14px] 2xl:text-[16px]">
 								{queueVideoMetadata.youtubeVideo.title}
 							</div>
-							<div className="text-[8px] lg:text-[12px] 2xl:text-[14px] text-neutral-400">
+							<div
+								className={
+									"text-[8px] lg:text-[12px] 2xl:text-[14px] text-neutral-400"
+								}
+							>
 								{queueVideoMetadata.youtubeVideo.channelTitle}
 							</div>
 						</div>
@@ -110,8 +124,10 @@ const QueueCard = ({
 							</div>
 							{!readOnly && (
 								<div
+									className="flex gap-2"
 									onClick={(e) => handleClickDeleteButton(e)}
 								>
+									{/* <AlignJustify className="block lg:hidden handle" size={12} /> */}
 									<Trash
 										className="hidden lg:block cursor-pointer hover:text-red-500"
 										size={20}
@@ -142,7 +158,7 @@ const QueueCard = ({
 					<DialogFooter>
 						<div className="flex justify-end mt-4">
 							<Button
-                                disabled={isLoading}
+								disabled={isLoading}
 								onClick={handleRemoveMusic}
 								className="text-white bg-red-600 hover:bg-red-700"
 							>

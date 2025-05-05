@@ -1,4 +1,5 @@
 import BackButton from "@/components/BackButton";
+import CreatorContact from "@/components/CreatorContact";
 import { ReactNode } from "react";
 
 const CenterContainer = ({
@@ -12,11 +13,16 @@ const CenterContainer = ({
 }) => {
 	return (
 		<div className="flex h-screen justify-center relative">
-			{!hideBackButton && <BackButton/>}
+			{!hideBackButton && <BackButton />}
 			<div
-				className={"my-auto " + className} /* className="m-auto w-1/2" */
+				className={
+					"my-auto " + className
+				} /* className="m-auto w-1/2" */
 			>
 				{children}
+			</div>
+			<div className="absolute bottom-5 md:bottom-8 left-1/2 transform -translate-x-1/2">
+				<CreatorContact />
 			</div>
 		</div>
 	);

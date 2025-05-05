@@ -9,9 +9,9 @@ const Home = () => {
 
 	return (
 		<CenterContainer hideBackButton>
-            <div className="themed-color text-center text-4xl sm:text-5xl font-bold">
-                TURN UP
-            </div>
+			<div className="themed-color text-center text-4xl sm:text-5xl font-bold">
+				TURN UP
+			</div>
 			<div className="flex flex-col gap-2 mt-10">
 				<Button className="px-24" onClick={() => navigate("/create")}>
 					Create a Lobby
@@ -28,7 +28,8 @@ const Home = () => {
 				>
 					Join an existing Lobby
 				</Button>
-                <RecentlyVisitedPlaylistList />
+				<RecentlyVisitedPlaylistList />
+				
 			</div>
 		</CenterContainer>
 	);
